@@ -2,19 +2,30 @@
 
 use Codacy\Coverage\Parser\CloverParser;
 use Codacy\Coverage\Config;
+use Codacy\Coverage\Parser\PhpUnitXmlParser;
 
 class ParserTest extends PHPUnit_Framework_TestCase {
+
+    public function testCanParsePhpUnitXmlReport()
+    {
+        Config::loadConfig(); //TODO: How can this be run automatically?
+        $p = new PhpUnitXmlParser(Config::$projectRoot . '/tests/res/phpunitxml/index.xml');
+        $report = $p->makeReport();
+        $this->assertEquals(50, $report->getTotal());
+    }
 	
-	public function testCanParseCloverXmlWithoutProject() {
-		Config::loadConfig();
-		$this->canParse(Config::$projectRoot . '/tests/res/clover/clover.xml');
+	public function testCanParseCloverXmlWithoutProject()
+    {
+		$this->_canParseClover(Config::$projectRoot . '/tests/res/clover/clover.xml');
 	}
 	
-	public function testCanParseCloverXmlWithProject() {
-		$this->canParse(Config::$projectRoot . '/tests/res/clover/clover_without_packages.xml');
+	public function testCanParseCloverXmlWithProject()
+    {
+		$this->_canParseClover(Config::$projectRoot . '/tests/res/clover/clover_without_packages.xml');
 	}
-	
-	private function canParse($path){
+
+    private function _canParseClover($path)
+    {
 		$p = new CloverParser($path);
 		$report = $p->makeReport();
 		$this->assertEquals(38, $report->getTotal());
@@ -32,7 +43,5 @@ class ParserTest extends PHPUnit_Framework_TestCase {
 				
 		$this->assertEquals("src/Codacy/Coverage/Parser/Parser.php", $parserFileName);
 		$this->assertEquals("src/Codacy/Coverage/Report/CoverageReport.php", $reportFileName);
-		
-		
 	}
 }

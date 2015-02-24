@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<phpunit xmlns="http://schema.phpunit.de/coverage/1.0">
+  <file name="Blacklist.php">
+    <totals>
+      <lines total="186" comments="94" code="92" executable="34" executed="1" percent="2.94%"/>
+      <methods count="8" tested="1" percent="12.50%"/>
+      <functions count="0" tested="0" percent=""/>
+      <classes count="1" tested="0" percent="0.00%"/>
+      <traits count="0" tested="0" percent=""/>
+    </totals>
+    <class name="Blacklist" start="55" executable="34" executed="1" crap="281.24">
+      <package full="" name="" sub="" category=""/>
+      <namespace name="SebastianBergmann\GlobalState"/>
+      <method name="addGlobalVariable" signature="addGlobalVariable($variableName)" start="90" end="93" crap="2" executable="2" executed="0" coverage="0"/>
+      <method name="addClass" signature="addClass($className)" start="98" end="101" crap="2" executable="2" executed="0" coverage="0"/>
+      <method name="addSubclassesOf" signature="addSubclassesOf($className)" start="106" end="109" crap="2" executable="2" executed="0" coverage="0"/>
+      <method name="addImplementorsOf" signature="addImplementorsOf($interfaceName)" start="114" end="117" crap="2" executable="2" executed="0" coverage="0"/>
+      <method name="addClassNamePrefix" signature="addClassNamePrefix($classNamePrefix)" start="122" end="125" crap="2" executable="2" executed="0" coverage="0"/>
+      <method name="addStaticAttribute" signature="addStaticAttribute($className, $attributeName)" start="131" end="138" crap="6" executable="5" executed="0" coverage="0"/>
+      <method name="isGlobalVariableBlacklisted" signature="isGlobalVariableBlacklisted($variableName)" start="144" end="147" crap="1" executable="1" executed="1" coverage="100"/>
+      <method name="isStaticAttributeBlacklisted" signature="isStaticAttributeBlacklisted($className, $attributeName)" start="154" end="185" crap="90" executable="18" executed="0" coverage="0"/>
+    </class>
+    <coverage>
+      <line nr="146">
+        <covered by="ParserTest::testCanParseXmlWithoutProject"/>
+        <covered by="ParserTest::testCanParseXmlWithProject"/>
+      </line>
+    </coverage>
+  </file>
+</phpunit>
