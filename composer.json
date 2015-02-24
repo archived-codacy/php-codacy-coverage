@@ -1,0 +1,22 @@
+{
+    "name": "codacy/php_coverage",
+    "description": "",
+    "require": {
+        "gitonomy/gitlib": "dev-master"
+        },
+    "require-dev": {
+        "phpunit/phpunit": "~4.5"
+    },
+    "autoload": {
+        "classmap": [
+            "src/"
+        ]
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jakob Pupke",
+            "email": "jakob.pupke@gmail.com"
+        }
+    ]
+}

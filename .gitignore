@@ -1,0 +1,6 @@
+phpunit-xml
+.buildpath
+.project
+.settings
+/vendor/
+/build/
