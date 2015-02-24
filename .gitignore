@@ -1,6 +1,4 @@
 phpunit-xml
-.buildpath
-.project
-.settings
+.idea
 /vendor/
 /build/

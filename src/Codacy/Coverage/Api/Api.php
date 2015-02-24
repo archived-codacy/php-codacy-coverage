@@ -8,9 +8,7 @@ class Api
     //TODO: do it with fsockopen
     /**
      * @param string $url  url to post to
-     *
      * @param string $data the JSON data
-     *
      * @return void
      */
     function postData($url, $data) 
