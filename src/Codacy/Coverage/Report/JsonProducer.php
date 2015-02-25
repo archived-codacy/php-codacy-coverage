@@ -6,14 +6,14 @@ use Codacy\Coverage\Parser\IParser;
 
 /**
  * Class JsonProducer
- * Can be composed of parsers that implement the IParser interface.
+ * Is composed of a parser that implements the IParser interface.
  * @package Codacy\Coverage\Report
  * @author Jakob Pupke <jakob.pupke@gmail.com>
  */
 class JsonProducer
 {
     /**
-     * @var parser object that implements IParser interface
+     * @var Parser that implements IParser interface
      */
     private $_parser;
 
@@ -28,7 +28,7 @@ class JsonProducer
 
     /**
      * Delegates the job to the parser's makeReport() method
-     * @return CoverageReport object
+     * @return CoverageReport The CoverageReport object
      */
     public function makeReport() 
     {
@@ -36,7 +36,26 @@ class JsonProducer
     }
     
     /**
-     * Takes a CoverageReport object, the result of makeReport(), and outputs JSON
+     * Takes a CoverageReport object, the result of makeReport(), and outputs JSON.
+     * Example JSON format:
+     * {
+     *  "total": 67,
+     *  "fileReports": [
+     *       {
+     *          "filename": "src\/Codacy\/Coverage\/Api\/Api.php",
+     *          "total": 3,
+     *          "coverage": {
+     *              "12": "3",
+     *              "13": "5",
+     *              .........
+     *              .........
+     *          }
+     *      },
+     *      .........
+     *      .......
+     *  ]
+     * }
+     *
      * @return string the JSON string
      */
     public function makeJson() 
@@ -53,10 +72,14 @@ class JsonProducer
             $fileArray['filename'] = $fr->getFileName();
             $fileArray['total']    = $fr->getTotal();
             $fileArray['coverage'] = $fr->getLineCoverage();
-    
+
             array_push($fileReportsArray, $fileArray);
         }
+
         $array['fileReports'] = $fileReportsArray;
+
+
+        //TODO: No need for PRETTY_PRINT
         return json_encode($array, JSON_PRETTY_PRINT);
     }
 }
