@@ -1,7 +1,9 @@
 {
     "name": "codacy/php_coverage",
-    "description": "",
+    "description": "Sends PHP test coverage information to Codacy.",
+    "homepage": "http://codacy.com",
     "require": {
+        "php": ">=5.2.0",
         "gitonomy/gitlib": "dev-master"
         },
     "require-dev": {

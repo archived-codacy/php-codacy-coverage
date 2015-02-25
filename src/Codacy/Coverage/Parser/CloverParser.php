@@ -4,33 +4,18 @@ namespace Codacy\Coverage\Parser;
 
 use Codacy\Coverage\Report\FileReport;
 use Codacy\Coverage\Report\CoverageReport;
-use Codacy\Coverage\Parser\IParser;
 use Codacy\Coverage\Config;
 
 /**
  * Parses Clover XML file and produces a CoverageReport object.
+ * Inherits constructor from abstract class Parser and implements
+ * the IParser interface.
  * @package Codacy\Coverage\Parser
  * @author Jakob Pupke <jakob.pupke@gmail.com>
  */
-class CloverParser implements IParser
+class CloverParser extends XMLParser implements IParser
 {
-    
-    private $_element;
-    
-    /**
-     * Construct CloverParser and set the XML object as member field
-     * @param string $path Path to XML file
-     */
-    public function __construct($path)
-    {
-        if (file_exists($path)) {
-            $this->_element = simplexml_load_file($path);
-        } else {
-            throw new \InvalidArgumentException("Unable to load the xml file. Make sure path is properly set. " .
-                "Using: \"$path\"", E_USER_ERROR);
-        }
-    }
-    
+
     /**
      * Extracts basic information about coverage report and delegates
      * more detailed extraction work to _makeFileReports() method.
@@ -39,7 +24,7 @@ class CloverParser implements IParser
      */
     public function makeReport() 
     {
-        $project = $this->_element->project;
+        $project = $this->element->project;
         $projectMetrics = $project->metrics;
         $coveredStatements = intval($projectMetrics['coveredstatements']);
         $statementsTotal = intval($projectMetrics['statements']);
@@ -76,8 +61,8 @@ class CloverParser implements IParser
     
     /**
      * Iterates all over all <file...>..</file> nodes.
-     * @param \SimpleXMLElement $node The XML node holding the file nodes.
-     * @param array $fileReports array of FileReport objects
+     * @param \SimpleXMLElement $node        The XML node holding the file nodes.
+     * @param array             $fileReports array of FileReport objects
      * @return array holding FileReport objects
      */
     private function _makeFileReportsFromFiles(\SimpleXMLElement $node, $fileReports) 

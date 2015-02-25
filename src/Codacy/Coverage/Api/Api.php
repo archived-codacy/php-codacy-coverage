@@ -2,7 +2,11 @@
 
 namespace Codacy\Coverage\Api;
 
-class Api
+/**
+ * Class ApiClient
+ * @package Codacy\Coverage\Api
+ */
+class ApiClient
 {
     
     //TODO: do it with fsockopen
@@ -11,9 +15,9 @@ class Api
      * @param string $data the JSON data
      * @return void
      */
-    function postData($url, $data) 
+    static function postData($url, $data)
     {
-        echo "Starting\n\r";
+        echo "Starting Coverage Data to Codacy\n\r";
         
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_HEADER, true);
@@ -29,18 +33,15 @@ class Api
         
         $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         
-        if ($status != 201 ) {
+        if ($status < 200 || $status > 201 ) {
             die("Error: call to URL $url failed with status $status, 
             		response $json_response, curl_error " 
                     . curl_error($curl) . ", curl_errno " . curl_errno($curl));
         } else {
-            echo "Success!\n\r";
+            echo $json_response . "\n\r";
         }
         
         curl_close($curl);
         
-        $response = json_decode($json_response, true);
-        
-        echo $response;
     }
 }

@@ -14,6 +14,6 @@ class JsonProducerTest extends PHPUnit_Framework_TestCase
         $j->setParser($p);
         $json = $j->makeJson();
         $jsonFile = file_get_contents(Config::$projectRoot . "/tests/res/clover/clover.json");
-        $this->assertEquals($json, $jsonFile);
+        $this->assertJsonStringEqualsJsonString($json, $jsonFile);
     }
 }

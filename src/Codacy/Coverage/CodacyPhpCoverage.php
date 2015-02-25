@@ -9,15 +9,16 @@ use Codacy\Coverage\Parser\PhpUnitXmlParser;
 use Codacy\Coverage\Api\Api;
 use Codacy\Coverage\Git\GitClient;
 use Codacy\Coverage\Report\JsonProducer;
-use Codacy\Coverage\Config;
 
 class CodacyPhpCoverage
 {
 
     static function doIt() 
     {
+
+
         Config::loadConfig();
-        
+
         $jsonProducer = new JsonProducer();
         switch (Config::$coverageFormat){
             
@@ -42,7 +43,26 @@ class CodacyPhpCoverage
             
         $jsonProducer->setParser($parser);
         print_r($jsonProducer->makeJson());
-        
+
+        $result = file_get_contents('http://requestb.in/wr6yafwr');
+        echo $result;
+
+        /*
+        $gClient = new GitClient(Config::$projectRoot);
+
+        $data = file_get_contents("/home/jacke/Desktop/phpCoverageTest/test.json");
+
+        //print_r($gClient->getHashOfLatestCommit() . "\n");
+        //print_r(Config::$projectToken  . "\n");
+        $token = Config::$projectToken;
+        $commit = $gClient->getHashOfLatestCommit();
+        $baseUrl = "https://www.codacy.com";
+
+        $url = $baseUrl . "/api/coverage/" . $token . "/" . $commit;
+        //print_r($url);
+        */
+        //ApiClient::postData("http://requestb.in/p8zjyhp9", "fizz=buzz");
+
     }
 }
 

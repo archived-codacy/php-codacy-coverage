@@ -2,11 +2,9 @@
 
 namespace Codacy\Coverage\Parser;
 
-use Codacy\Coverage\Parser\IParser;
 use Codacy\Coverage\Report\FileReport;
 use Codacy\Coverage\Report\CoverageReport;
 use Codacy\Coverage\Config;
-use Doctrine\Instantiator\Exception\InvalidArgumentException;
 
 /**
  * Parses XML file, result of phpunit --coverage-xml, and produces
@@ -17,47 +15,39 @@ use Doctrine\Instantiator\Exception\InvalidArgumentException;
  * @package Codacy\Coverage\Parser
  * @author Jakob Pupke <jakob.pupke@gmail.com>
  */
-class PhpUnitXmlParser implements IParser
+class PhpUnitXmlParser extends XMLParser implements IParser
 {
-    private $_element;
 
-    /**
-     * Construct PhpUnitXmlParser and set the XML object as member field
-     * @param string $path Path to XML file
-     */
-    public function __construct($path) 
-    {
-        if (file_exists($path)) {
-            $this->_element = simplexml_load_file($path);
-        } else {
-            throw new \InvalidArgumentException ("Unable to load the xml file. Make sure path is properly set. " .
-                "Using: \"$path\"", E_USER_ERROR);
-        }
-    }
-    
     /**
      * Extracts basic information about coverage report
      * from the root xml file (index.xml).
-     * For line coverage information about the files we have
+     * For line coverage information about the files it has
      * to parse each individual file. This is handled by
-     * _getLineCoverage.
+     * _getLineCoverage() private method.
      * @see \Codacy\Coverage\Parser\IParser::makeReport()
      * @return CoverageReport $report The CoverageReport object
      */
     public function makeReport()
     {
         //we can get the report total from the first directory summary.
-        $reportTotal = $this->_getTotalFromPercent($this->_element->project->directory->totals->lines["percent"]);
+        $reportTotal = $this->_getTotalFromPercent($this->element->project->directory->totals->lines["percent"]);
         $fileReports = array();
-        foreach ($this->_element->project->directory->file as $file) {
+        foreach ($this->element->project->directory->file as $file) {
             $fileName = $this->_getRelativePath($file["href"]);
             
             $xmlFileHref = (string) $file["href"];
             $base = Config::$projectRoot . "/" . Config::$phpUnitXmlDir . "/";
-            // get the corresponding xml file.
-            $fileXml = simplexml_load_file($base . $xmlFileHref) or die(
-                "Error: Cannot read XML file. Please check config.ini. Is phpUnitXmlDir properly set? Given: " . Config::$phpUnitXmlDir
-            );
+
+            // get the corresponding xml file to get lineCoverage information.
+            if (file_exists($base . $xmlFileHref)) {
+                $fileXml = simplexml_load_file($base . $xmlFileHref);
+            } else {
+                throw new \InvalidArgumentException(
+                    "Error: Cannot read XML file. Please check config.ini.
+                    Is phpUnitXmlDir properly set? Using: " . Config::$phpUnitXmlDir
+                );
+            }
+
             $fileTotal = $this->_getTotalFromPercent($fileXml->file->totals->lines["percent"]);
             $lineCoverage = $this->_getLineCoverage($fileXml);
             $fileReport = new FileReport($fileTotal, $fileName, $lineCoverage);
@@ -87,7 +77,7 @@ class PhpUnitXmlParser implements IParser
     }
     
     /**
-     * Gets number from percent. Example: 95.00% -> 95
+     * Gets Integer from percent. Example: 95.00% -> 95
      * @param \SimpleXMLElement $percent The percent attribute of the node
      * @return int number The according integer
      */
