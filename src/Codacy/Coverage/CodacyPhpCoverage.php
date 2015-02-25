@@ -23,13 +23,13 @@ class CodacyPhpCoverage
             
         case "clover":
             $parser = new CloverParser(
-                Config::$projectRoot . "/tests/res/clover/clover.xml"
+                Config::$projectRoot . "/tests/res/clover/closver.xml"
             );
             break;
             
         case "phpunit-xml":
             $parser = new PhpUnitXmlParser(
-                Config::$projectRoot . "/" . Config::$phpUnitXmlDir . "/index.xml"
+                Config::$projectRoot . "/" . Config::$phpUnitXmlDir . "/inex.xml"
             );
             break;
             

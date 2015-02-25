@@ -21,10 +21,14 @@ class CloverParser implements IParser
      * Construct CloverParser and set the XML object as member field
      * @param string $path Path to XML file
      */
-    public function __construct($path) 
+    public function __construct($path)
     {
-        $this->_element = simplexml_load_file($path) or 
-        die("Error: Cannot create object from XML file. Check file path!");
+        if (file_exists($path)) {
+            $this->_element = simplexml_load_file($path);
+        } else {
+            throw new \InvalidArgumentException("Unable to load the xml file. Make sure path is properly set. " .
+                "Using: \"$path\"", E_USER_ERROR);
+        }
     }
     
     /**

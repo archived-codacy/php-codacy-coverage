@@ -6,6 +6,7 @@ use Codacy\Coverage\Parser\IParser;
 use Codacy\Coverage\Report\FileReport;
 use Codacy\Coverage\Report\CoverageReport;
 use Codacy\Coverage\Config;
+use Doctrine\Instantiator\Exception\InvalidArgumentException;
 
 /**
  * Parses XML file, result of phpunit --coverage-xml, and produces
@@ -18,15 +19,20 @@ use Codacy\Coverage\Config;
  */
 class PhpUnitXmlParser implements IParser
 {
+    private $_element;
+
     /**
      * Construct PhpUnitXmlParser and set the XML object as member field
      * @param string $path Path to XML file
      */
     public function __construct($path) 
     {
-        $this->element = simplexml_load_file($path) or die(
-            "Error: Cannot create object from XML file. Check file path! Path given: " . $path
-        );
+        if (file_exists($path)) {
+            $this->_element = simplexml_load_file($path);
+        } else {
+            throw new \InvalidArgumentException ("Unable to load the xml file. Make sure path is properly set. " .
+                "Using: \"$path\"", E_USER_ERROR);
+        }
     }
     
     /**
@@ -41,9 +47,9 @@ class PhpUnitXmlParser implements IParser
     public function makeReport()
     {
         //we can get the report total from the first directory summary.
-        $reportTotal = $this->_getTotalFromPercent($this->element->project->directory->totals->lines["percent"]);
+        $reportTotal = $this->_getTotalFromPercent($this->_element->project->directory->totals->lines["percent"]);
         $fileReports = array();
-        foreach ($this->element->project->directory->file as $file) {
+        foreach ($this->_element->project->directory->file as $file) {
             $fileName = $this->_getRelativePath($file["href"]);
             
             $xmlFileHref = (string) $file["href"];
