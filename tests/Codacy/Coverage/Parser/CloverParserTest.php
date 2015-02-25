@@ -3,7 +3,8 @@
 use Codacy\Coverage\Parser\CloverParser;
 use Codacy\Coverage\Config;
 
-class CloverParserTest extends PHPUnit_Framework_TestCase {
+class CloverParserTest extends PHPUnit_Framework_TestCase
+{
 
 
     public function testThrowsExceptionOnWrongPath()

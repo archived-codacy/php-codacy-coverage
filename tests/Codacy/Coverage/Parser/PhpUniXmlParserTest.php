@@ -3,7 +3,8 @@
 use Codacy\Coverage\Config;
 use Codacy\Coverage\Parser\PhpUnitXmlParser;
 
-class PhpUnitXmlParserTest extends PHPUnit_Framework_TestCase {
+class PhpUnitXmlParserTest extends PHPUnit_Framework_TestCase
+{
 
 
     public function testThrowsExceptionOnWrongPath() {

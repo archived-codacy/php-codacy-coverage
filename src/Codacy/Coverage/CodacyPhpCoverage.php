@@ -23,13 +23,13 @@ class CodacyPhpCoverage
             
         case "clover":
             $parser = new CloverParser(
-                Config::$projectRoot . "/tests/res/clover/closver.xml"
+                Config::$projectRoot . "/tests/res/clover/clover.xml"
             );
             break;
             
         case "phpunit-xml":
             $parser = new PhpUnitXmlParser(
-                Config::$projectRoot . "/" . Config::$phpUnitXmlDir . "/inex.xml"
+                Config::$projectRoot . "/" . Config::$phpUnitXmlDir . "/index.xml"
             );
             break;
             
@@ -41,7 +41,7 @@ class CodacyPhpCoverage
         }
             
         $jsonProducer->setParser($parser);
-        print_R($jsonProducer->makeJson());
+        print_r($jsonProducer->makeJson());
         
     }
 }
