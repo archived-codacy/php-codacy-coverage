@@ -24,7 +24,7 @@ class CodacyPhpCoverage
             
         case "clover":
             $parser = new CloverParser(
-                Config::$projectRoot . "/tests/res/clover/clover.xml"
+                Config::$projectRoot . "/build/logs/clover.xml"
             );
             break;
             
@@ -44,10 +44,11 @@ class CodacyPhpCoverage
         $jsonProducer->setParser($parser);
         print_r($jsonProducer->makeJson());
 
-        $result = file_get_contents('http://requestb.in/wr6yafwr');
-        echo $result;
-
         /*
+
+        // JUST A TEST
+
+
         $gClient = new GitClient(Config::$projectRoot);
 
         $data = file_get_contents("/home/jacke/Desktop/phpCoverageTest/test.json");
@@ -59,9 +60,9 @@ class CodacyPhpCoverage
         $baseUrl = "https://www.codacy.com";
 
         $url = $baseUrl . "/api/coverage/" . $token . "/" . $commit;
-        //print_r($url);
+
+        ApiClient::postData("http://requestb.in/p8zjyhp9", "fizz=buzz");
         */
-        //ApiClient::postData("http://requestb.in/p8zjyhp9", "fizz=buzz");
 
     }
 }

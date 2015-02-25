@@ -31,6 +31,7 @@ class PhpUnitXmlParser extends XMLParser implements IParser
     {
         //we can get the report total from the first directory summary.
         $reportTotal = $this->_getTotalFromPercent($this->element->project->directory->totals->lines["percent"]);
+
         $fileReports = array();
         foreach ($this->element->project->directory->file as $file) {
             $fileName = $this->_getRelativePath($file["href"]);
@@ -65,14 +66,17 @@ class PhpUnitXmlParser extends XMLParser implements IParser
     private function _getLineCoverage(\SimpleXMLElement $node)
     {
         $lineCoverage = array();
-        foreach ($node->file->coverage->line as $line) {
-            //TODO: Is this the correct way to get nr of hits?
-            $count = $line->covered->count();
-            if ($count > 0) {
-                $nr = (string) $line["nr"];
-                $lineCoverage[$nr] = $count;
+        if ($node->file->coverage) {
+            foreach ($node->file->coverage->line as $line) {
+                //TODO: Is this the correct way to get nr of hits?
+                $count = $line->covered->count();
+                if ($count > 0) {
+                    $nr = (string)$line["nr"];
+                    $lineCoverage[$nr] = $count;
+                }
             }
         }
+        // else there is no line coverage, return empty array then.
         return $lineCoverage;
     }
     
@@ -89,17 +93,20 @@ class PhpUnitXmlParser extends XMLParser implements IParser
     }
     
     /**
-     * The phpUnit Xml Coverage format only saves the filename without
-     * path. We can get the filename from the href attribute though.
+     * The PhpUnit XML Coverage format does not save the full path of the filename
+     * We can get the filename by combining the path of the first directory with
+     * the href attribute of each file.
      * @param \SimpleXMLElement $fileName The href attribute of the <file></file> node.
      * @return string The relative path of the file, that is, relative to project root.
      */
     private function _getRelativePath(\SimpleXMLElement $fileName) 
     {
-        $proj_root = Config::$projectRoot;
-        $length = strlen($proj_root);
+        $dirOfSrcFiles = $this->element->project->directory["name"];
+        $projectRoot = Config::$projectRoot;
+        // Need to cut off everything lower than projectRoot
+        $dirFromProjectRoot = substr($dirOfSrcFiles, strlen($projectRoot) + 1);
         // remove .xml and convert to string
         $absoluteFileName = substr((string) $fileName, 0, -4);
-        return substr($absoluteFileName, $length);
+        return join(DIRECTORY_SEPARATOR, array($dirFromProjectRoot, $absoluteFileName));
     }
 }

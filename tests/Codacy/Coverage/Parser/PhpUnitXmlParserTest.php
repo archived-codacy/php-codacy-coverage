@@ -10,9 +10,12 @@ class PhpUnitXmlParserTest extends PHPUnit_Framework_TestCase
     public function testThrowsExceptionOnWrongPath()
     {
         $this->setExpectedException('InvalidArgumentException');
-        $p = new PhpUnitXmlParser("/home/foo/bar/baz/m.xml");
+        $p = new PhpUnitXmlParser("/home/foo/bar/baz/fake.xml");
     }
 
+    /**
+     * Testing against the coverage report in 'tests/res/phpunitxml'
+     */
     public function testCanParsePhpUnitXmlReport()
     {
         Config::loadConfig(); //TODO: How can this be run automatically prior to every test?
@@ -20,25 +23,25 @@ class PhpUnitXmlParserTest extends PHPUnit_Framework_TestCase
         $p = new PhpUnitXmlParser(Config::$projectRoot . '/tests/res/phpunitxml/index.xml');
         $report = $p->makeReport();
 
-        $this->assertEquals(50, $report->getTotal());
-        $this->assertEquals(5, sizeof($report->getFileReports()));
+        $this->assertEquals(69, $report->getTotal());
+        $this->assertEquals(10, sizeof($report->getFileReports()));
 
-        $parserFileReport = $report->getFileReports()[0];
-        $coverageReportFileReport = $report->getFileReports()[1];
+        $ConfigFileReport = $report->getFileReports()[2];
+        $cloverParserFileReport = $report->getFileReports()[4];
 
-        $this->assertEquals(100, $parserFileReport->getTotal());
-        $this->assertEquals(75, $coverageReportFileReport->getTotal());
+        $this->assertEquals(86, $ConfigFileReport->getTotal());
+        $this->assertEquals(95, $cloverParserFileReport->getTotal());
 
-        $lineCoverage = $report->getFileReports()[1]->getLineCoverage();
-        $expLineCoverage = array(11 => 2, 12 => 2, 13 => 2, 16 => 2, 19 => 2, 30 => 2, 31 => 2, 32 => 2, 33 => 2);
+        $lineCoverage = $ConfigFileReport->getLineCoverage();
+        $expLineCoverage = array(24 => 4, 25 => 4, 26 => 4, 27 => 4, 28 => 4, 29 => 4);
         $this->assertEquals($lineCoverage, $expLineCoverage);
 
-        $parserFileName = $parserFileReport->getFileName();
+        $configFileName = $ConfigFileReport->getFileName();
 
-        $reportFileName = $coverageReportFileReport->getFileName();
+        $cloverParserFileName = $cloverParserFileReport->getFileName();
 
-        $this->assertEquals("src/Codacy/Coverage/Parser/Parser.php", $parserFileName);
-        $this->assertEquals("src/Codacy/Coverage/Report/CoverageReport.php", $reportFileName);
+        $this->assertEquals("src/Codacy/Coverage/Config.php", $configFileName);
+        $this->assertEquals("src/Codacy/Coverage/Parser/CloverParser.php", $cloverParserFileName);
     }
 
 }

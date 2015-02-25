@@ -15,7 +15,8 @@
     </testsuite>
   </testsuites>
   <logging>
-    <log type="coverage-html" target="build/coverage"/>
+    <log type="coverage-html" target="build/coverage-html"/>
+    <log type="coverage-xml" target="build/coverage-xml"/>
     <log type="coverage-clover" target="build/logs/clover.xml"/>
     <log type="junit" target="build/logs/junit.xml" logIncompleteSkipped="false"/>
     <log type="tap" target="build/report.tap"/>

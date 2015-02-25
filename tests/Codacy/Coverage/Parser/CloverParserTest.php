@@ -13,12 +13,18 @@ class CloverParserTest extends PHPUnit_Framework_TestCase
         $p = new CloverParser("/home/foo/bar/baz/m.xml");
     }
 
+    /**
+     * Testing against the clover coverage report 'tests/res/clover/clover.xml'
+     */
     public function testCanParseCloverXmlWithoutProject()
     {
         Config::loadConfig(); //TODO: How can this be run automatically prior to every test?
 		$this->_canParseClover(Config::$projectRoot . '/tests/res/clover/clover.xml');
 	}
-	
+
+    /**
+     * Testing against the clover coverage report 'tests/res/clover/clover.xml'
+     */
 	public function testCanParseCloverXmlWithProject()
     {
 		$this->_canParseClover(Config::$projectRoot . '/tests/res/clover/clover_without_packages.xml');
