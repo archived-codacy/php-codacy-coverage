@@ -14,11 +14,14 @@ class PhpUnitXmlParserTest extends PHPUnit_Framework_TestCase
 
     /**
      * Testing against the coverage report in 'tests/res/phpunitxml'
+     * The test had been made in /home/jacke/Desktop/codacy-php so we need to pass this
+     * as 2nd (ootional) parameter. Otherwise the filename will not be correct and test
+     * the would file on other machines or in other directories.
      */
     public function testCanParsePhpUnitXmlReport()
     {
 
-        $p = new PhpUnitXmlParser('tests/res/phpunitxml/index.xml');
+        $p = new PhpUnitXmlParser('tests/res/phpunitxml/index.xml', '/home/jacke/Desktop/codacy-php');
         $report = $p->makeReport();
 
         $this->assertEquals(69, $report->getTotal());

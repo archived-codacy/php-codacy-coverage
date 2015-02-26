@@ -127,7 +127,7 @@ class CloverParser extends XMLParser implements IParser
      */
     private function _getRelativePath(\SimpleXMLElement $fileName) 
     {
-        $len = strlen(getcwd());
+        $len = strlen($this->rootDir);
         return substr((string) $fileName, $len + 1);
     }
 }

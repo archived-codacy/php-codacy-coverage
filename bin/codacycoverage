@@ -23,7 +23,7 @@ $jsonProducer = new JsonProducer();
 
 if(sizeof($argv) != 2) {
     throw new InvalidArgumentException("Invalid length of arguments! Only one argument for coverage format allowed." . PHP_EOL .
-        "It should either be clover or phpunit." . PHP_EOL . "####### Example: php codacycoverage clover");
+        "It should either be clover or phpunit." . PHP_EOL . "####### Example: php vendor/bin/codacycoverage clover");
 } else {
     $coverageFormat =  $argv[1];
 }
@@ -45,7 +45,7 @@ switch ($coverageFormat){
     default:
         throw new \InvalidArgumentException(
             'No valid coverage format argument found. It should either be clover or phpunit.' . PHP_EOL .
-                "Example: php codacycoverage clover"
+                "Example: php vendor/bin/codacycoverage clover"
         );
     }
 
@@ -61,4 +61,4 @@ $baseUrl = "https://www.codacy.com";
 
 $url = $baseUrl . "/api/coverage/" . $projectToken . "/" . $commit;
 
-//ApiClient::postData($url, $data);
+CodacyApiClient::postData($url, $data);

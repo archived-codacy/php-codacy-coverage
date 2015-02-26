@@ -63,7 +63,6 @@ class PhpUnitXmlParser extends XMLParser implements IParser
         $lineCoverage = array();
         if ($node->file->coverage) {
             foreach ($node->file->coverage->line as $line) {
-                //TODO: Is this the correct way to get nr of hits?
                 $count = $line->covered->count();
                 if ($count > 0) {
                     $nr = (string)$line["nr"];
@@ -98,11 +97,11 @@ class PhpUnitXmlParser extends XMLParser implements IParser
     {
 
         $dirOfSrcFiles = $this->element->project->directory["name"];
-        $projectRoot = getcwd();
+        $projectRoot = $this->rootDir;
         // Need to cut off everything lower than projectRoot
         $dirFromProjectRoot = substr($dirOfSrcFiles, strlen($projectRoot) + 1);
         // remove .xml and convert to string
-        $absoluteFileName = substr((string) $fileName, 0, -4);
-        return join(DIRECTORY_SEPARATOR, array($dirFromProjectRoot, $absoluteFileName));
+        $relativeFilePath = substr((string) $fileName, 0, -4);
+        return join(DIRECTORY_SEPARATOR, array($dirFromProjectRoot, $relativeFilePath));
     }
 }

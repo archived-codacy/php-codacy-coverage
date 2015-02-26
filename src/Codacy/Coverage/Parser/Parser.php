@@ -26,13 +26,25 @@ abstract class XMLParser
     protected $element;
 
     /**
+     * @var null|string The root directory. Can be other than current working directory
+     * in order to make tests pass against the static reports in tests/res directory.
+     */
+    protected $rootDir;
+
+    /**
      * Construct PhpUnitXmlParser and set the XML object as member field.
-     * All XML bases classes inherit this constructor.
+     * All XML parser classes inherit this constructor.
+     * @param string $rootDir Is only for making tests pass.
      * @param string $path Path to XML file
      */
-    public function __construct($path)
+    public function __construct($path, $rootDir = null)
     {
         if (file_exists($path)) {
+            if($rootDir == null) {
+                $this->rootDir = getcwd();
+            } else {
+                $this->rootDir = $rootDir;
+            }
             $this->element = simplexml_load_file($path);
         } else {
             throw new \InvalidArgumentException(

@@ -17,20 +17,23 @@ class CloverParserTest extends PHPUnit_Framework_TestCase
      */
     public function testCanParseCloverXmlWithoutProject()
     {
-		$this->_canParseClover('tests/res/clover/clover.xml');
+		$this->_canParseClover('tests/res/clover/clover.xml', "/home/jacke/Desktop/codacy-php");
 	}
 
     /**
      * Testing against the clover coverage report 'tests/res/clover/clover.xml'
+     * The test had been made in /home/jacke/Desktop/codacy-php so we need to pass this
+     * as 2nd (ootional) parameter. Otherwise the filename will not be correct and test
+     * the would file on other machines or in other directories.
      */
 	public function testCanParseCloverXmlWithProject()
     {
-		$this->_canParseClover('tests/res/clover/clover_without_packages.xml');
+		$this->_canParseClover('tests/res/clover/clover_without_packages.xml', "/home/jacke/Desktop/codacy-php");
 	}
 
-    private function _canParseClover($path)
+    private function _canParseClover($path, $rootDir)
     {
-		$p = new CloverParser($path);
+		$p = new CloverParser($path, $rootDir);
 		$report = $p->makeReport();
 		$this->assertEquals(38, $report->getTotal());
 		$this->assertEquals(5, sizeof($report->getFileReports()));
