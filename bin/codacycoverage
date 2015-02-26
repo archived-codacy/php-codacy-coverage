@@ -1,0 +1,57 @@
+#!/usr/bin/env php
+<?php
+
+require 'vendor/autoload.php';
+
+use Codacy\Coverage\Parser\CloverParser;
+use Codacy\Coverage\Parser\PhpUnitXmlParser;
+use Codacy\Coverage\Util\CodacyApiClient;
+use Codacy\Coverage\Util\GitClient;
+use Codacy\Coverage\Util\JsonProducer;
+
+
+$projectToken = getenv("CODACY_PROJECT_TOKEN");
+
+$jsonProducer = new JsonProducer();
+
+if(sizeof($argv) != 2) {
+    throw new InvalidArgumentException("Invalid length of arguments! Please define the coverage format." . PHP_EOL .
+        "It should either be clover or phpunit." . PHP_EOL . "Example: php codacycoverage clover");
+} else {
+    $coverageFormat =  $argv[1];
+}
+
+switch ($coverageFormat){
+
+    case "clover":
+        $parser = new CloverParser(
+            join(DIRECTORY_SEPARATOR, array("build", "logs", "clover.xml"))
+        );
+        break;
+
+    case "phpunit":
+        $parser = new PhpUnitXmlParser(
+            join(DIRECTORY_SEPARATOR, array("build", "coverage-xml", "index.xml"))
+        );
+        break;
+
+    default:
+        throw new \InvalidArgumentException(
+            'No valid coverage format argument found. It should either be clover or phpunit.' . PHP_EOL .
+                "Example: php codacycoverage clover"
+        );
+    }
+
+$jsonProducer->setParser($parser);
+
+$data = $jsonProducer->makeJson();
+
+$gClient = new GitClient(getcwd());
+
+$commit = $gClient->getHashOfLatestCommit();
+
+$baseUrl = "https://www.codacy.com";
+
+$url = $baseUrl . "/api/coverage/" . $projectToken . "/" . $commit;
+
+//ApiClient::postData($url, $data);

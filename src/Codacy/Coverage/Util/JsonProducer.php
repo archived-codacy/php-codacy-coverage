@@ -7,7 +7,6 @@ use Codacy\Coverage\Parser\IParser;
 /**
  * Class JsonProducer
  * Is composed of a parser that implements the IParser interface.
- * @package Codacy\Coverage\Report
  * @author Jakob Pupke <jakob.pupke@gmail.com>
  */
 class JsonProducer
@@ -77,7 +76,6 @@ class JsonProducer
         }
 
         $array['fileReports'] = $fileReportsArray;
-
 
         //TODO: No need for PRETTY_PRINT
         return json_encode($array, JSON_PRETTY_PRINT);

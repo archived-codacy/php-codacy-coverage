@@ -16,7 +16,6 @@ interface IParser
 /**
  * Class XMLParser
  * The superclass of all parsers that parse XML files.
- * @package Codacy\Coverage\Parser
  * @author Jakob Pupke <jakob.pupke@gmail.com>
  */
 abstract class XMLParser

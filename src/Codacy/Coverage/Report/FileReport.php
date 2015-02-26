@@ -6,7 +6,6 @@ namespace Codacy\Coverage\Report;
  * Class FileReport
  * Holds the file report total result, the filename and a list (associative array)
  * mapping line numbers to hits [lineNr => hits]
- * @package Codacy\Coverage\Report
  * @author Jakob Pupke <jakob.pupke@gmail.com>
  */
 class FileReport

@@ -4,7 +4,7 @@ namespace Codacy\Coverage\Util;
 
 /**
  * Class ApiClient
- * @package Codacy\Coverage\Api
+ * @author Jakob Pupke <jakob.pupke@gmail.com>
  */
 class CodacyApiClient
 {
@@ -17,7 +17,7 @@ class CodacyApiClient
      */
     static function postData($url, $data)
     {
-        echo "Starting Coverage Data to Codacy\n\r";
+        echo "Sending Coverage Data to Codacy\n\r";
         
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_HEADER, true);

@@ -1,6 +1,5 @@
 <?php
 
-use Codacy\Coverage\Util\Config;
 use Codacy\Coverage\Parser\PhpUnitXmlParser;
 
 class PhpUnitXmlParserTest extends PHPUnit_Framework_TestCase
@@ -18,9 +17,8 @@ class PhpUnitXmlParserTest extends PHPUnit_Framework_TestCase
      */
     public function testCanParsePhpUnitXmlReport()
     {
-        Config::loadConfig(); //TODO: How can this be run automatically prior to every test?
 
-        $p = new PhpUnitXmlParser(Config::$projectRoot . '/tests/res/phpunitxml/index.xml');
+        $p = new PhpUnitXmlParser('tests/res/phpunitxml/index.xml');
         $report = $p->makeReport();
 
         $this->assertEquals(69, $report->getTotal());

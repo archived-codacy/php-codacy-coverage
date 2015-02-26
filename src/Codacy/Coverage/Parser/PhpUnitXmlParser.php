@@ -4,7 +4,6 @@ namespace Codacy\Coverage\Parser;
 
 use Codacy\Coverage\Report\FileReport;
 use Codacy\Coverage\Report\CoverageReport;
-use Codacy\Coverage\Util\Config;
 
 /**
  * Parses XML file, result of phpunit --coverage-xml, and produces
@@ -12,7 +11,6 @@ use Codacy\Coverage\Util\Config;
  * the report is scattered over different files. Basic information
  * can be parsed from the index.xml file. But the relevant information
  * for each file is stored in individual files.
- * @package Codacy\Coverage\Parser
  * @author Jakob Pupke <jakob.pupke@gmail.com>
  */
 class PhpUnitXmlParser extends XMLParser implements IParser
@@ -24,7 +22,6 @@ class PhpUnitXmlParser extends XMLParser implements IParser
      * For line coverage information about the files it has
      * to parse each individual file. This is handled by
      * _getLineCoverage() private method.
-     * @see \Codacy\Coverage\Parser\IParser::makeReport()
      * @return CoverageReport $report The CoverageReport object
      */
     public function makeReport()
@@ -37,15 +34,13 @@ class PhpUnitXmlParser extends XMLParser implements IParser
             $fileName = $this->_getRelativePath($file["href"]);
             
             $xmlFileHref = (string) $file["href"];
-            $base = Config::$projectRoot . "/" . Config::$phpUnitXmlDir . "/";
-
+            $base = "build" . DIRECTORY_SEPARATOR . "coverage-xml";
             // get the corresponding xml file to get lineCoverage information.
-            if (file_exists($base . $xmlFileHref)) {
-                $fileXml = simplexml_load_file($base . $xmlFileHref);
+            if (file_exists($base . DIRECTORY_SEPARATOR . $xmlFileHref)) {
+                $fileXml = simplexml_load_file($base . DIRECTORY_SEPARATOR . $xmlFileHref);
             } else {
                 throw new \InvalidArgumentException(
-                    "Error: Cannot read XML file. Please check config.ini.
-                    Is phpUnitXmlDir properly set? Using: " . Config::$phpUnitXmlDir
+                    "Error: Cannot read XML file. Using: " . $base . DIRECTORY_SEPARATOR . $xmlFileHref . "\n\r"
                 );
             }
 
@@ -101,8 +96,9 @@ class PhpUnitXmlParser extends XMLParser implements IParser
      */
     private function _getRelativePath(\SimpleXMLElement $fileName) 
     {
+
         $dirOfSrcFiles = $this->element->project->directory["name"];
-        $projectRoot = Config::$projectRoot;
+        $projectRoot = getcwd();
         // Need to cut off everything lower than projectRoot
         $dirFromProjectRoot = substr($dirOfSrcFiles, strlen($projectRoot) + 1);
         // remove .xml and convert to string

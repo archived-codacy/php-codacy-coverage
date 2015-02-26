@@ -10,7 +10,6 @@ use Codacy\Coverage\Util\Config;
  * Parses Clover XML file and produces a CoverageReport object.
  * Inherits constructor from abstract class Parser and implements
  * the IParser interface.
- * @package Codacy\Coverage\Parser
  * @author Jakob Pupke <jakob.pupke@gmail.com>
  */
 class CloverParser extends XMLParser implements IParser
@@ -19,7 +18,6 @@ class CloverParser extends XMLParser implements IParser
     /**
      * Extracts basic information about coverage report and delegates
      * more detailed extraction work to _makeFileReports() method.
-     * @see \Codacy\Coverage\Parser\IParser::makeReport()
      * @return CoverageReport $report The CoverageReport object
      */
     public function makeReport() 
@@ -129,7 +127,7 @@ class CloverParser extends XMLParser implements IParser
      */
     private function _getRelativePath(\SimpleXMLElement $fileName) 
     {
-        $len = strlen(Config::$projectRoot);
+        $len = strlen(getcwd());
         return substr((string) $fileName, $len + 1);
     }
 }

@@ -1,7 +1,6 @@
 <?php
 
 use Codacy\Coverage\Parser\CloverParser;
-use Codacy\Coverage\Util\Config;
 
 class CloverParserTest extends PHPUnit_Framework_TestCase
 {
@@ -18,8 +17,7 @@ class CloverParserTest extends PHPUnit_Framework_TestCase
      */
     public function testCanParseCloverXmlWithoutProject()
     {
-        Config::loadConfig(); //TODO: How can this be run automatically prior to every test?
-		$this->_canParseClover(Config::$projectRoot . '/tests/res/clover/clover.xml');
+		$this->_canParseClover('tests/res/clover/clover.xml');
 	}
 
     /**
@@ -27,7 +25,7 @@ class CloverParserTest extends PHPUnit_Framework_TestCase
      */
 	public function testCanParseCloverXmlWithProject()
     {
-		$this->_canParseClover(Config::$projectRoot . '/tests/res/clover/clover_without_packages.xml');
+		$this->_canParseClover('tests/res/clover/clover_without_packages.xml');
 	}
 
     private function _canParseClover($path)

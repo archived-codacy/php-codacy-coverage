@@ -6,7 +6,6 @@ namespace Codacy\Coverage\Report;
  * Class CoverageReport
  * Holds the coverage report total result and a list (array)
  * of FileReports
- * @package Codacy\Coverage\Report
  * @author Jakob Pupke <jakob.pupke@gmail.com>
  */
 class CoverageReport

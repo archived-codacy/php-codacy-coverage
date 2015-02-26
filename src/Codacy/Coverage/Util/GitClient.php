@@ -7,7 +7,6 @@ use Codacy\Coverage\Util\Config;
 
 /**
  * Class GitClient
- * @package Codacy\Coverage\Git
  * @author Jakob Pupke <jakob.pupke@gmail.com>
  */
 class GitClient
@@ -23,12 +22,12 @@ class GitClient
      */
     public function __construct($path)
     {
-        if (is_dir(Config::$projectRoot)) {
+        if (is_dir(getcwd())) {
             $this->_repository = new Repository($path);
         } else {
             throw new \InvalidArgumentException(
-                "Could not instantiate GitClient. Check if projectRoot is properly set in conf.ini. Using: "
-                . Config::$projectRoot
+                "Could not instantiate GitClient. Using: "
+                . getcwd()
             );
         }
 
