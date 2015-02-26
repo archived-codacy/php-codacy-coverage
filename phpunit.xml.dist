@@ -25,6 +25,10 @@
   <filter>
     <whitelist addUncoveredFilesFromWhitelist="true">
       <directory suffix=".php">src</directory>
+      <exclude>
+        <file>src/Codacy/Coverage/Util/CodacyApiClient.php</file>
+        <file>src/Codacy/Coverage/CodacyPhpCoverage.php</file>
+      </exclude>
     </whitelist>
   </filter>
 </phpunit>
