@@ -6,9 +6,10 @@ require '../../../vendor/autoload.php';
 
 use Codacy\Coverage\Parser\CloverParser;
 use Codacy\Coverage\Parser\PhpUnitXmlParser;
-use Codacy\Coverage\Api\Api;
-use Codacy\Coverage\Git\GitClient;
-use Codacy\Coverage\Report\JsonProducer;
+use Codacy\Coverage\Util\CodacyApiClient;
+use Codacy\Coverage\Util\GitClient;
+use Codacy\Coverage\Util\JsonProducer;
+use Codacy\Coverage\Util\Config;
 
 class CodacyPhpCoverage
 {

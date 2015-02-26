@@ -1,12 +1,12 @@
 <?php
 
-namespace Codacy\Coverage\Api;
+namespace Codacy\Coverage\Util;
 
 /**
  * Class ApiClient
  * @package Codacy\Coverage\Api
  */
-class ApiClient
+class CodacyApiClient
 {
     
     //TODO: do it with fsockopen

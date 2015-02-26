@@ -4,7 +4,7 @@ namespace Codacy\Coverage\Parser;
 
 use Codacy\Coverage\Report\FileReport;
 use Codacy\Coverage\Report\CoverageReport;
-use Codacy\Coverage\Config;
+use Codacy\Coverage\Util\Config;
 
 /**
  * Parses XML file, result of phpunit --coverage-xml, and produces

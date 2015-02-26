@@ -1,7 +1,7 @@
 <?php
 
-use Codacy\Coverage\Config;
-use Codacy\Coverage\Report\JsonProducer;
+use Codacy\Coverage\Util\Config;
+use Codacy\Coverage\Util\JsonProducer;
 use Codacy\Coverage\Parser\CloverParser;
 
 class JsonProducerTest extends PHPUnit_Framework_TestCase

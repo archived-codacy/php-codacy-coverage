@@ -1,7 +1,7 @@
 <?php
 
 use Codacy\Coverage\Parser\CloverParser;
-use Codacy\Coverage\Config;
+use Codacy\Coverage\Util\Config;
 
 class CloverParserTest extends PHPUnit_Framework_TestCase
 {

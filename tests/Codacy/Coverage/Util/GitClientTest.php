@@ -1,7 +1,7 @@
 <?php
 
-use Codacy\Coverage\Config;
-use Codacy\Coverage\Git\GitClient;
+use Codacy\Coverage\Util\Config;
+use Codacy\Coverage\Util\GitClient;
 
 class GitClientTest extends PHPUnit_Framework_TestCase
 {

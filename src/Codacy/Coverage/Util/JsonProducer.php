@@ -1,6 +1,6 @@
 <?php
 
-namespace Codacy\Coverage\Report;
+namespace Codacy\Coverage\Util;
 
 use Codacy\Coverage\Parser\IParser;
 

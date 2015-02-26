@@ -1,6 +1,6 @@
 <?php
 
-namespace Codacy\Coverage;
+namespace Codacy\Coverage\Util;
 
 /**
  * Class Config
@@ -21,6 +21,7 @@ class Config
      */
     public static function loadConfig()
     {
+        //TODO: Get rid of hardcoded path
         $conf = parse_ini_file("/home/jacke/Desktop/codacy-php/conf.ini");
         self::$projectRoot = $conf["projectRoot"];
         self::$coverageFormat = $conf["coverageFormat"];

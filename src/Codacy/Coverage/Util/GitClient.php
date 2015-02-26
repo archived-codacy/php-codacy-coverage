@@ -1,9 +1,9 @@
 <?php
 
-namespace Codacy\Coverage\Git;
+namespace Codacy\Coverage\Util;
 
 use Gitonomy\Git\Repository;
-use Codacy\Coverage\Config;
+use Codacy\Coverage\Util\Config;
 
 /**
  * Class GitClient
