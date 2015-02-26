@@ -5,7 +5,7 @@
     "type": "library",
     "require": {
         "php": ">=5.2.0",
-        "gitonomy/gitlib": "dev-master"
+        "gitonomy/gitlib": "0.1.7"
         },
     "require-dev": {
         "phpunit/phpunit": "~4.5"
