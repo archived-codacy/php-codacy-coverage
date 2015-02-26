@@ -27,11 +27,11 @@ class PhpUnitXmlParser extends XMLParser implements IParser
     public function makeReport()
     {
         //we can get the report total from the first directory summary.
-        $reportTotal = $this->_getTotalFromPercent($this->element->project->directory->totals->lines["percent"]);
+        $reportTotal = $this->getTotalFromPercent($this->element->project->directory->totals->lines["percent"]);
 
         $fileReports = array();
         foreach ($this->element->project->directory->file as $file) {
-            $fileName = $this->_getRelativePath($file["href"]);
+            $fileName = $this->getRelativePath($file["href"]);
             
             $xmlFileHref = (string) $file["href"];
             $base = "build" . DIRECTORY_SEPARATOR . "coverage-xml";
@@ -44,8 +44,8 @@ class PhpUnitXmlParser extends XMLParser implements IParser
                 );
             }
 
-            $fileTotal = $this->_getTotalFromPercent($fileXml->file->totals->lines["percent"]);
-            $lineCoverage = $this->_getLineCoverage($fileXml);
+            $fileTotal = $this->getTotalFromPercent($fileXml->file->totals->lines["percent"]);
+            $lineCoverage = $this->getLineCoverage($fileXml);
             $fileReport = new FileReport($fileTotal, $fileName, $lineCoverage);
             array_push($fileReports, $fileReport);
         }
@@ -58,7 +58,7 @@ class PhpUnitXmlParser extends XMLParser implements IParser
      * @param \SimpleXMLElement $node The XML node holding the <line></line> nodes
      * @return array: (lineNumber -> hits)
      */
-    private function _getLineCoverage(\SimpleXMLElement $node)
+    private function getLineCoverage(\SimpleXMLElement $node)
     {
         $lineCoverage = array();
         if ($node->file->coverage) {
@@ -79,7 +79,7 @@ class PhpUnitXmlParser extends XMLParser implements IParser
      * @param \SimpleXMLElement $percent The percent attribute of the node
      * @return int number The according integer
      */
-    private function _getTotalFromPercent(\SimpleXMLElement $percent)
+    private function getTotalFromPercent(\SimpleXMLElement $percent)
     {
         $percent = (string) $percent;
         $percent = explode("%", $percent)[0];
@@ -93,7 +93,7 @@ class PhpUnitXmlParser extends XMLParser implements IParser
      * @param \SimpleXMLElement $fileName The href attribute of the <file></file> node.
      * @return string The relative path of the file, that is, relative to project root.
      */
-    private function _getRelativePath(\SimpleXMLElement $fileName) 
+    private function getRelativePath(\SimpleXMLElement $fileName)
     {
 
         $dirOfSrcFiles = $this->element->project->directory["name"];

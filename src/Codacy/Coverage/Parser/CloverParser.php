@@ -4,7 +4,6 @@ namespace Codacy\Coverage\Parser;
 
 use Codacy\Coverage\Report\FileReport;
 use Codacy\Coverage\Report\CoverageReport;
-use Codacy\Coverage\Util\Config;
 
 /**
  * Parses Clover XML file and produces a CoverageReport object.
@@ -27,7 +26,7 @@ class CloverParser extends XMLParser implements IParser
         $coveredStatements = intval($projectMetrics['coveredstatements']);
         $statementsTotal = intval($projectMetrics['statements']);
         $reportTotal = round(($coveredStatements / $statementsTotal) * 100);
-        $fileReports = $this->_makeFileReports($project);
+        $fileReports = $this->makeFileReports($project);
         $report = new CoverageReport($reportTotal, $fileReports);
         return $report;
     }
@@ -39,7 +38,7 @@ class CloverParser extends XMLParser implements IParser
      * @param \SimpleXMLElement $node the root XML node.
      * @return array holding FileReport objects
      */
-    private function _makeFileReports(\SimpleXMLElement $node) 
+    private function makeFileReports(\SimpleXMLElement $node)
     {
         $fileReports = array();
         /*
@@ -49,10 +48,10 @@ class CloverParser extends XMLParser implements IParser
         */
         if ($node->file->count() > 0) {
             // so there is a file without package
-            $fileReports = $this->_makeFileReportsFromFiles($node->file, $fileReports);
+            $fileReports = $this->makeFileReportsFromFiles($node->file, $fileReports);
         }
         if ($node->package->count() > 0) {
-            $fileReports = $this->_makeFileReportsFromPackages($node->package, $fileReports);
+            $fileReports = $this->makeFileReportsFromPackages($node->package, $fileReports);
         }
         return $fileReports;
     }
@@ -63,7 +62,7 @@ class CloverParser extends XMLParser implements IParser
      * @param array             $fileReports array of FileReport objects
      * @return array holding FileReport objects
      */
-    private function _makeFileReportsFromFiles(\SimpleXMLElement $node, $fileReports) 
+    private function makeFileReportsFromFiles(\SimpleXMLElement $node, $fileReports)
     {
         foreach ($node as $file) {
             // iterate files in the package
@@ -74,8 +73,8 @@ class CloverParser extends XMLParser implements IParser
             } else {
                 $fileTotal = round(($countCoveredStatements / $countStatement) * 100);
             }
-            $fileName = $this->_getRelativePath($file['name']);
-            $lineCoverage = $this->_getLineCoverage($file);
+            $fileName = $this->getRelativePath($file['name']);
+            $lineCoverage = $this->getLineCoverage($file);
             $fileReport = new FileReport($fileTotal, $fileName, $lineCoverage);
             array_push($fileReports, $fileReport);
         }
@@ -88,11 +87,11 @@ class CloverParser extends XMLParser implements IParser
      * @param array             $fileReports array of FileReport objects
      * @return array holding FileReport objects
      */
-    private function _makeFileReportsFromPackages(\SimpleXMLElement $node, $fileReports) 
+    private function makeFileReportsFromPackages(\SimpleXMLElement $node, $fileReports)
     {
         // iterate all packages
         foreach ($node as $package) {
-            $fileReports = $this->_makeFileReportsFromFiles($package, $fileReports);
+            $fileReports = $this->makeFileReportsFromFiles($package, $fileReports);
         }
         return $fileReports;
     }
@@ -103,7 +102,7 @@ class CloverParser extends XMLParser implements IParser
      * @param \SimpleXMLElement $node The XML node holding the <line></line> nodes
      * @return array: (lineNumber -> hits)
      */
-    private function _getLineCoverage(\SimpleXMLElement $node)
+    private function getLineCoverage(\SimpleXMLElement $node)
     {
         $lineCoverage = array();
         foreach ($node as $line) {
@@ -125,7 +124,7 @@ class CloverParser extends XMLParser implements IParser
      * @param \SimpleXMLElement $fileName The filename attribute
      * @return string The relative path of that file
      */
-    private function _getRelativePath(\SimpleXMLElement $fileName) 
+    private function getRelativePath(\SimpleXMLElement $fileName)
     {
         $len = strlen($this->rootDir);
         return substr((string) $fileName, $len + 1);

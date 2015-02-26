@@ -9,7 +9,7 @@ class PhpUnitXmlParserTest extends PHPUnit_Framework_TestCase
     public function testThrowsExceptionOnWrongPath()
     {
         $this->setExpectedException('InvalidArgumentException');
-        $p = new PhpUnitXmlParser("/home/foo/bar/baz/fake.xml");
+        $parser = new PhpUnitXmlParser("/home/foo/bar/baz/fake.xml");
     }
 
     /**
@@ -21,8 +21,8 @@ class PhpUnitXmlParserTest extends PHPUnit_Framework_TestCase
     public function testCanParsePhpUnitXmlReport()
     {
 
-        $p = new PhpUnitXmlParser('tests/res/phpunitxml/index.xml', '/home/jacke/Desktop/codacy-php');
-        $report = $p->makeReport();
+        $parser = new PhpUnitXmlParser('tests/res/phpunitxml/index.xml', '/home/jacke/Desktop/codacy-php');
+        $report = $parser->makeReport();
 
         $this->assertEquals(69, $report->getTotal());
         $this->assertEquals(10, sizeof($report->getFileReports()));

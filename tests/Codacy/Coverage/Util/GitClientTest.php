@@ -6,8 +6,8 @@ class GitClientTest extends PHPUnit_Framework_TestCase
 {
     public function testGetHashOfLastCommit()
     {
-        $g = new GitClient(getcwd());
-        $hash = $g->getHashOfLatestCommit();
+        $gitClient = new GitClient(getcwd());
+        $hash = $gitClient->getHashOfLatestCommit();
         $this->assertEquals(40, strlen($hash));
     }
 }

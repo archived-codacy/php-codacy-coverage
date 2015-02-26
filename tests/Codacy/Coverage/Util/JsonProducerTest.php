@@ -8,10 +8,10 @@ class JsonProducerTest extends PHPUnit_Framework_TestCase
 {
     public function testCanProduceCorrectJson()
     {
-        $p = new CloverParser("tests/res/clover/clover.xml");
-        $j = new JsonProducer();
-        $j->setParser($p);
-        $json = $j->makeJson();
+        $parser = new CloverParser("tests/res/clover/clover.xml");
+        $jsonProducer = new JsonProducer();
+        $jsonProducer->setParser($parser);
+        $json = $jsonProducer->makeJson();
         $jsonFile = file_get_contents("tests/res/clover/clover.json");
         $this->assertJsonStringEqualsJsonString($json, $jsonFile);
     }

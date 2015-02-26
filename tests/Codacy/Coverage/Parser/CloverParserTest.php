@@ -9,7 +9,7 @@ class CloverParserTest extends PHPUnit_Framework_TestCase
     public function testThrowsExceptionOnWrongPath()
     {
         $this->setExpectedException('InvalidArgumentException');
-        $p = new CloverParser("/home/foo/bar/baz/m.xml");
+        $parser = new CloverParser("/home/foo/bar/baz/m.xml");
     }
 
     /**
@@ -33,8 +33,8 @@ class CloverParserTest extends PHPUnit_Framework_TestCase
 
     private function _canParseClover($path, $rootDir)
     {
-		$p = new CloverParser($path, $rootDir);
-		$report = $p->makeReport();
+		$parser = new CloverParser($path, $rootDir);
+		$report = $parser->makeReport();
 		$this->assertEquals(38, $report->getTotal());
 		$this->assertEquals(5, sizeof($report->getFileReports()));
 		
