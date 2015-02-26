@@ -12,11 +12,18 @@ use Codacy\Coverage\Util\JsonProducer;
 
 $projectToken = getenv("CODACY_PROJECT_TOKEN");
 
+if($projectToken == false) {
+    die(
+    "Cannot continue with execution as long as your project token is not set as an environmental variable." . PHP_EOL .
+    "Please type: export CODACY_PROJECT_TOKEN=<YOUR TOKEN>" . PHP_EOL
+    );
+}
+
 $jsonProducer = new JsonProducer();
 
 if(sizeof($argv) != 2) {
-    throw new InvalidArgumentException("Invalid length of arguments! Please define the coverage format." . PHP_EOL .
-        "It should either be clover or phpunit." . PHP_EOL . "Example: php codacycoverage clover");
+    throw new InvalidArgumentException("Invalid length of arguments! Only one argument for coverage format allowed." . PHP_EOL .
+        "It should either be clover or phpunit." . PHP_EOL . "####### Example: php codacycoverage clover");
 } else {
     $coverageFormat =  $argv[1];
 }
