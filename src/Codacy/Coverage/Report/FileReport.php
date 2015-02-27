@@ -11,7 +11,7 @@ namespace Codacy\Coverage\Report;
 class FileReport
 {
     /**
-     * @var string
+     * @var integer
      */
     private $_total;
 
@@ -21,7 +21,7 @@ class FileReport
     private $_fileName;
 
     /**
-     * @var array (line -> hits) of type [int -> int]
+     * @var array (line -> hits) of type [string -> int]
      */
     private $_lineCoverage;
 
@@ -38,7 +38,7 @@ class FileReport
     }
 
     /**
-     * @return string
+     * @return integer
      */
     public function getTotal()
     {

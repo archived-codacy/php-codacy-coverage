@@ -106,11 +106,11 @@ class CloverParser extends XMLParser implements IParser
     {
         $lineCoverage = array();
         foreach ($node as $line) {
+            $count = intval($line['count']);
             // iterate all lines in that file
-            if ($line['type'] == 'stmt' && intval($line['count']) > 0 ) {
-                // https://github.com/satooshi/php-coveralls#cloverxml
+            if ($line['type'] == 'stmt' && $count > 0 ) {
                 $lineNr = (string) $line['num'];
-                $hit = intval($line['count']);
+                $hit = $count;
                 $lineCoverage[$lineNr] = $hit;
             }
         }

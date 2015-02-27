@@ -19,8 +19,6 @@ if($projectToken == false) {
     );
 }
 
-$jsonProducer = new JsonProducer();
-
 if(sizeof($argv) != 2) {
     throw new InvalidArgumentException("Invalid length of arguments! Only one argument for coverage format allowed." . PHP_EOL .
         "It should either be clover or phpunit." . PHP_EOL . "####### Example: php vendor/bin/codacycoverage clover");
@@ -48,6 +46,8 @@ switch ($coverageFormat){
                 "Example: php vendor/bin/codacycoverage clover"
         );
     }
+
+$jsonProducer = new JsonProducer();
 
 $jsonProducer->setParser($parser);
 

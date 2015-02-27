@@ -11,7 +11,7 @@ namespace Codacy\Coverage\Report;
 class CoverageReport
 {
     /**
-     * @var string
+     * @var integer
      */
     private $_total;
 
@@ -31,7 +31,7 @@ class CoverageReport
     }
 
     /**
-     * @return string
+     * @return integer
      */
     public function getTotal() 
     {

@@ -9,7 +9,7 @@ class PhpUnitXmlParserTest extends PHPUnit_Framework_TestCase
     public function testThrowsExceptionOnWrongPath()
     {
         $this->setExpectedException('InvalidArgumentException');
-        $parser = new PhpUnitXmlParser("/home/foo/bar/baz/fake.xml");
+        new PhpUnitXmlParser("/home/foo/bar/baz/fake.xml");
     }
 
     /**

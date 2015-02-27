@@ -9,7 +9,7 @@ class CloverParserTest extends PHPUnit_Framework_TestCase
     public function testThrowsExceptionOnWrongPath()
     {
         $this->setExpectedException('InvalidArgumentException');
-        $parser = new CloverParser("/home/foo/bar/baz/m.xml");
+        new CloverParser("/home/foo/bar/baz/m.xml");
     }
 
     /**
