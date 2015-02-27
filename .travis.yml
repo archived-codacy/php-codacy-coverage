@@ -1,6 +1,5 @@
 language: php
 php:
-  - 5.2
   - 5.3
   - 5.4
   - 5.5
@@ -9,10 +8,11 @@ php:
 
 before_script:
   - curl -s http://getcomposer.org/installer | php
-  - php composer.phar install --dev -n
+  - php composer.phar install -n
 
 script:
   - mkdir -p build/logs
+  - php vendor/bin/phpunit
   - php vendor/kherge/box/bin/box build -c compile.json
 
 after_script:
