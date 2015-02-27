@@ -28,11 +28,10 @@ class PhpUnitXmlParserTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(69, $report->getTotal());
         $this->assertEquals(10, sizeof($report->getFileReports()));
 
-        $configFileReports = $report->getFileReports();
-        $cloverParserFileReports = $report->getFileReports();
+        $fileReports = $report->getFileReports();
 
-        $configFileReport = $configFileReports[2];
-        $cloverParserFileReport = $cloverParserFileReports[4];
+        $configFileReport = $fileReports[2];
+        $cloverParserFileReport = $fileReports[4];
 
         $this->assertEquals(86, $configFileReport->getTotal());
         $this->assertEquals(95, $cloverParserFileReport->getTotal());

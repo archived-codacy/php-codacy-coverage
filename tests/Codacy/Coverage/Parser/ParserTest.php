@@ -9,28 +9,24 @@ use Codacy\Coverage\Util\JsonProducer;
 class ParserTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Note: This test can only be executed once the tests have run once.
+     * Running against tests/res/phpunit-clover
      */
-    public function testParsersProduceSameResult() {
+    public function testParsersProduceSameResult()
+    {
+        $cloverParser = new CloverParser('tests/res/phpunit-clover/clover.xml');
+        $xunitParser = new PhpUnitXmlParser('tests/res/phpunit-clover/index.xml');
+        $xunitParser->setDirOfFileXmls('tests/res/phpunit-clover');
 
-        if (file_exists('build/logs/clover.xml') && file_exists('build/coverage-xml/index.xml')) {
+        $jsonProducer = new JsonProducer();
 
-            $cloverParser = new CloverParser('build/logs/clover.xml');
-            $xunitParser = new PhpUnitXmlParser('build/coverage-xml/index.xml');
-            $xunitParser->setDirOfFileXmls('build/coverage-xml');
+        $jsonProducer->setParser($cloverParser);
 
-            $jsonProducer = new JsonProducer();
+        $cloverJson = $jsonProducer->makeJson();
 
-            $jsonProducer->setParser($cloverParser);
+        $jsonProducer->setParser($xunitParser);
 
-            $cloverJson = $jsonProducer->makeJson();
+        $xunitJson = $jsonProducer->makeJson();
 
-            $jsonProducer->setParser($xunitParser);
-
-            $xunitJson = $jsonProducer->makeJson();
-
-            $this->assertJsonStringEqualsJsonString($cloverJson, $xunitJson);
-        }
-
+        $this->assertJsonStringEqualsJsonString($cloverJson, $xunitJson);
     }
 }

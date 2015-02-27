@@ -11,9 +11,7 @@ before_script:
   - php composer.phar install -n
 
 script:
-  - mkdir -p build/logs
   - php vendor/bin/phpunit
-  - php vendor/kherge/box/bin/box build -c compile.json
 
 after_script:
   - php bin/codacycoverage clover

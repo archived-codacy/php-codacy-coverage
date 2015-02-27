@@ -39,10 +39,9 @@ class CloverParserTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals(5, sizeof($report->getFileReports()));
 		
 		$parserFileReports = $report->getFileReports();
-		$coverageReportFileReports = $report->getFileReports();
 
         $parserFileReport = $parserFileReports[0];
-        $coverageReportFileReport = $coverageReportFileReports[1];
+        $coverageReportFileReport = $parserFileReports[1];
 		
 		$this->assertEquals(33, $parserFileReport->getTotal());
 		$this->assertEquals(33, $coverageReportFileReport->getTotal());
@@ -51,9 +50,11 @@ class CloverParserTest extends PHPUnit_Framework_TestCase
 		
 		$reportFileName = $coverageReportFileReport->getFileName();
 
-        $lineCoverage = $report->getFileReports()[1]->getLineCoverage();
+        $fileReports = $report->getFileReports();
+        $fileReport = $fileReports[1];
+
         $expLineCoverage = array(11 => 1, 12 => 1, 13 => 1, 16 => 1);
-        $this->assertEquals($lineCoverage, $expLineCoverage);
+        $this->assertEquals($fileReport->getLineCoverage(), $expLineCoverage);
 				
 		$this->assertEquals("src/Codacy/Coverage/Parser/Parser.php", $parserFileName);
 		$this->assertEquals("src/Codacy/Coverage/Report/CoverageReport.php", $reportFileName);
