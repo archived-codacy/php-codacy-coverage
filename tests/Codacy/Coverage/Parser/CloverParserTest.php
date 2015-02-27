@@ -38,8 +38,11 @@ class CloverParserTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals(38, $report->getTotal());
 		$this->assertEquals(5, sizeof($report->getFileReports()));
 		
-		$parserFileReport = $report->getFileReports()[0];
-		$coverageReportFileReport = $report->getFileReports()[1];
+		$parserFileReports = $report->getFileReports();
+		$coverageReportFileReports = $report->getFileReports();
+
+        $parserFileReport = $parserFileReports[0];
+        $coverageReportFileReport = $coverageReportFileReports[1];
 		
 		$this->assertEquals(33, $parserFileReport->getTotal());
 		$this->assertEquals(33, $coverageReportFileReport->getTotal());
