@@ -20,8 +20,8 @@ if($projectToken == false) {
 }
 
 if(sizeof($argv) != 2) {
-    throw new InvalidArgumentException("Invalid length of arguments! Only one argument for coverage format allowed." . PHP_EOL .
-        "It should either be clover or phpunit." . PHP_EOL . "####### Example: php vendor/bin/codacycoverage clover");
+    die("Invalid length of arguments! Only one argument for coverage format allowed." . PHP_EOL .
+        "It should either be clover or phpunit." . PHP_EOL . "## Example: php vendor/bin/codacycoverage clover" . PHP_EOL);
 } else {
     $coverageFormat =  $argv[1];
 }
