@@ -32,6 +32,7 @@ class PhpUnitXmlParser extends XMLParser implements IParser
         $fileReports = array();
         foreach ($this->element->project->directory->file as $file) {
             $fileName = $this->getRelativePath($file["href"]);
+            $fileTotal = $this->getTotalFromPercent($file->totals->lines["percent"]);
             
             $xmlFileHref = (string) $file["href"];
             $base = "build" . DIRECTORY_SEPARATOR . "coverage-xml";
@@ -44,7 +45,6 @@ class PhpUnitXmlParser extends XMLParser implements IParser
                 );
             }
 
-            $fileTotal = $this->getTotalFromPercent($fileXml->file->totals->lines["percent"]);
             $lineCoverage = $this->getLineCoverage($fileXml);
             $fileReport = new FileReport($fileTotal, $fileName, $lineCoverage);
             array_push($fileReports, $fileReport);
@@ -77,12 +77,12 @@ class PhpUnitXmlParser extends XMLParser implements IParser
     /**
      * Gets Integer from percent. Example: 95.00% -> 95
      * @param \SimpleXMLElement $percent The percent attribute of the node
-     * @return int number The according integer
+     * @return integer The according integer value
      */
     private function getTotalFromPercent(\SimpleXMLElement $percent)
     {
         $percent = (string) $percent;
-        $percent = explode("%", $percent)[0];
+        $percent = substr($percent, 0, -1);
         return round($percent);
     }
     
