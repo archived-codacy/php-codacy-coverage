@@ -16,6 +16,7 @@ use Codacy\Coverage\Report\CoverageReport;
 class PhpUnitXmlParser extends XMLParser implements IParser
 {
 
+    protected $dirOfFileXmls;
     /**
      * Extracts basic information about coverage report
      * from the root xml file (index.xml).
@@ -24,6 +25,21 @@ class PhpUnitXmlParser extends XMLParser implements IParser
      * _getLineCoverage() private method.
      * @return CoverageReport $report The CoverageReport object
      */
+
+    /**
+     * @param $dir string The path to where the single file xmls reside
+     */
+    public function setDirOfFileXmls($dir) {
+        $this->dirOfFileXmls = $dir;
+    }
+
+    /**
+     * @return string The path to where the single file xmls reside
+     */
+    public function getDirOfFileXmls() {
+        return $this->dirOfFileXmls;
+    }
+
     public function makeReport()
     {
         //we can get the report total from the first directory summary.
@@ -33,9 +49,9 @@ class PhpUnitXmlParser extends XMLParser implements IParser
         foreach ($this->element->project->directory->file as $file) {
             $fileName = $this->getRelativePath($file["href"]);
             $fileTotal = $this->getTotalFromPercent($file->totals->lines["percent"]);
-            
+
             $xmlFileHref = (string) $file["href"];
-            $base = "build" . DIRECTORY_SEPARATOR . "coverage-xml";
+            $base = $this->getDirOfFileXmls();
             // get the corresponding xml file to get lineCoverage information.
             if (file_exists($base . DIRECTORY_SEPARATOR . $xmlFileHref)) {
                 $fileXml = simplexml_load_file($base . DIRECTORY_SEPARATOR . $xmlFileHref);

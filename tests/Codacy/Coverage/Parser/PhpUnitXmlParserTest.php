@@ -22,6 +22,7 @@ class PhpUnitXmlParserTest extends PHPUnit_Framework_TestCase
     {
 
         $parser = new PhpUnitXmlParser('tests/res/phpunitxml/index.xml', '/home/jacke/Desktop/codacy-php');
+        $parser->setDirOfFileXmls("tests/res/phpunitxml");
         $report = $parser->makeReport();
 
         $this->assertEquals(69, $report->getTotal());

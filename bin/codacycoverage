@@ -40,6 +40,7 @@ switch ($coverageFormat){
         $parser = new PhpUnitXmlParser(
             join(DIRECTORY_SEPARATOR, array("build", "coverage-xml", "index.xml"))
         );
+        $parser->setDirOfFileXmls(join(DIRECTORY_SEPARATOR, array("build", "coverage-xml")));
         break;
 
     default:

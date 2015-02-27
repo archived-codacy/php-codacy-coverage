@@ -17,6 +17,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
 
             $cloverParser = new CloverParser('build/logs/clover.xml');
             $xunitParser = new PhpUnitXmlParser('build/coverage-xml/index.xml');
+            $xunitParser->setDirOfFileXmls('build/coverage-xml');
 
             $jsonProducer = new JsonProducer();
 
