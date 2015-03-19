@@ -29,11 +29,11 @@ class JsonProducer
      * Delegates the job to the parser's makeReport() method
      * @return CoverageReport The CoverageReport object
      */
-    public function makeReport() 
+    public function makeReport()
     {
         return $this->_parser->makeReport();
     }
-    
+
     /**
      * Takes a CoverageReport object, the result of makeReport(), and outputs JSON.
      * Example JSON format:
@@ -41,11 +41,11 @@ class JsonProducer
      *  "total": 67,
      *  "fileReports": [
      *       {
-     *          "filename": "src\/Codacy\/Coverage\/Api\/Api.php",
+     *          "filename": "src/Codacy/Coverage/Api/Api.php",
      *          "total": 3,
      *          "coverage": {
-     *              "12": "3",
-     *              "13": "5",
+     *              "12": 3,
+     *              "13": 5,
      *              .........
      *              .........
      *          }
@@ -57,19 +57,19 @@ class JsonProducer
      *
      * @return string the JSON string
      */
-    public function makeJson() 
+    public function makeJson()
     {
         $report = $this->makeReport();
         $array = array();
         $array['total'] = $report->getTotal();
-    
+
         $fileReportsArray = array();
         $fileReports = $report->getFileReports();
-    
+
         foreach ($fileReports as $fr) {
             $fileArray = array();
             $fileArray['filename'] = $fr->getFileName();
-            $fileArray['total']    = $fr->getTotal();
+            $fileArray['total'] = $fr->getTotal();
             $fileArray['coverage'] = $fr->getLineCoverage();
 
             array_push($fileReportsArray, $fileArray);
@@ -77,7 +77,11 @@ class JsonProducer
 
         $array['fileReports'] = $fileReportsArray;
 
-        //TODO: No need for PRETTY_PRINT
-        return json_encode($array);
+        if (version_compare(PHP_VERSION, '5.4.0', '>=')) {
+            return json_encode($array, JSON_UNESCAPED_SLASHES);
+        } else {
+            return str_replace('\/', '/', json_encode($array));
+        }
+
     }
 }

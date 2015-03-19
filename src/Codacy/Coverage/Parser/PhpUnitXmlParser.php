@@ -29,14 +29,16 @@ class PhpUnitXmlParser extends XMLParser implements IParser
     /**
      * @param $dir string The path to where the single file xmls reside
      */
-    public function setDirOfFileXmls($dir) {
+    public function setDirOfFileXmls($dir)
+    {
         $this->dirOfFileXmls = $dir;
     }
 
     /**
      * @return string The path to where the single file xmls reside
      */
-    public function getDirOfFileXmls() {
+    public function getDirOfFileXmls()
+    {
         return $this->dirOfFileXmls;
     }
 
@@ -50,7 +52,7 @@ class PhpUnitXmlParser extends XMLParser implements IParser
             $fileName = $this->getRelativePath($file["href"]);
             $fileTotal = $this->getTotalFromPercent($file->totals->lines["percent"]);
 
-            $xmlFileHref = (string) $file["href"];
+            $xmlFileHref = (string)$file["href"];
             $base = $this->getDirOfFileXmls();
             // get the corresponding xml file to get lineCoverage information.
             if (file_exists($base . DIRECTORY_SEPARATOR . $xmlFileHref)) {
@@ -68,7 +70,7 @@ class PhpUnitXmlParser extends XMLParser implements IParser
         $report = new CoverageReport($reportTotal, $fileReports);
         return $report;
     }
-    
+
     /**
      * Iterates all <line></line> nodes and produces an array holding line coverage information.
      * @param \SimpleXMLElement $node The XML node holding the <line></line> nodes
@@ -89,7 +91,7 @@ class PhpUnitXmlParser extends XMLParser implements IParser
         // else there is no line coverage, return empty array then.
         return $lineCoverage;
     }
-    
+
     /**
      * Gets Integer from percent. Example: 95.00% -> 95
      * @param \SimpleXMLElement $percent The percent attribute of the node
@@ -97,11 +99,11 @@ class PhpUnitXmlParser extends XMLParser implements IParser
      */
     private function getTotalFromPercent(\SimpleXMLElement $percent)
     {
-        $percent = (string) $percent;
+        $percent = (string)$percent;
         $percent = substr($percent, 0, -1);
         return round($percent);
     }
-    
+
     /**
      * The PhpUnit XML Coverage format does not save the full path of the filename
      * We can get the filename by combining the path of the first directory with
@@ -111,13 +113,12 @@ class PhpUnitXmlParser extends XMLParser implements IParser
      */
     private function getRelativePath(\SimpleXMLElement $fileName)
     {
-
         $dirOfSrcFiles = $this->element->project->directory["name"];
         $projectRoot = $this->rootDir;
         // Need to cut off everything lower than projectRoot
         $dirFromProjectRoot = substr($dirOfSrcFiles, strlen($projectRoot) + 1);
         // remove .xml and convert to string
-        $relativeFilePath = substr((string) $fileName, 0, -4);
+        $relativeFilePath = substr((string)$fileName, 0, -4);
         return join(DIRECTORY_SEPARATOR, array($dirFromProjectRoot, $relativeFilePath));
     }
 }

@@ -16,7 +16,7 @@ Setup codacy-coverage with Composer, just add the following to your composer.jso
 // composer.json
 {
     "require-dev": {
-				"codacy/coverage": "dev-master"
+        "codacy/coverage": "dev-master"
     }
 }
 ```

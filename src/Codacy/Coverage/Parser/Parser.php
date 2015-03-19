@@ -40,7 +40,7 @@ abstract class XMLParser
     public function __construct($path, $rootDir = null)
     {
         if (file_exists($path)) {
-            if($rootDir == null) {
+            if ($rootDir == null) {
                 $this->rootDir = getcwd();
             } else {
                 $this->rootDir = $rootDir;
