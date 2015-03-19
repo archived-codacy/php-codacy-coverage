@@ -169,6 +169,11 @@
         "78": 1,
         "81": 1
       }
+    },
+    {
+      "filename": "src/Codacy/Coverage/Util/EmptyFile.php",
+      "total": 0,
+      "coverage": {}
     }
   ]
 }
