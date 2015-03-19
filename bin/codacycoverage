@@ -20,7 +20,7 @@ if ($projectToken == false) {
 }
 
 if (sizeof($argv) != 2) {
-    die("Invalid length of arguments! Only one argument for coverage format allowed." . PHP_EOL .
+    die("Invalid length of arguments. Only one argument for coverage format allowed." . PHP_EOL .
         "It should either be clover or phpunit." . PHP_EOL . "## Example: php vendor/bin/codacycoverage clover" . PHP_EOL .
         "Or if you are using the phar, codacycoverage.phar clover" . PHP_EOL
     );
@@ -60,7 +60,11 @@ $gClient = new GitClient(getcwd());
 
 $commit = $gClient->getHashOfLatestCommit();
 
-$baseUrl = "https://www.codacy.com";
+$baseUrl = getenv("CODACY_API_BASE_URL");
+
+if ($baseUrl == false) {
+    $baseUrl = "https://www.codacy.com";
+}
 
 $url = $baseUrl . "/api/coverage/" . $projectToken . "/" . $commit;
 
