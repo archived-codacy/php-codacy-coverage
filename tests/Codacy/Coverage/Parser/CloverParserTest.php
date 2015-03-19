@@ -52,7 +52,7 @@ class CloverParserTest extends PHPUnit_Framework_TestCase
         $fileReports = $report->getFileReports();
         $fileReport = $fileReports[1];
 
-        $expLineCoverage = array(11 => 1, 12 => 1, 13 => 1, 16 => 1);
+        $expLineCoverage = (object)array(11 => 1, 12 => 1, 13 => 1, 16 => 1);
         $this->assertEquals($fileReport->getLineCoverage(), $expLineCoverage);
 
         $this->assertEquals("src/Codacy/Coverage/Parser/Parser.php", $parserFileName);

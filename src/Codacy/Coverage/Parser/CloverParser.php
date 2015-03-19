@@ -2,8 +2,8 @@
 
 namespace Codacy\Coverage\Parser;
 
-use Codacy\Coverage\Report\FileReport;
 use Codacy\Coverage\Report\CoverageReport;
+use Codacy\Coverage\Report\FileReport;
 
 /**
  * Parses Clover XML file and produces a CoverageReport object.
@@ -104,14 +104,14 @@ class CloverParser extends XMLParser implements IParser
      */
     private function getLineCoverage(\SimpleXMLElement $node)
     {
-        $lineCoverage = array();
+        $lineCoverage = (object)array();
         foreach ($node as $line) {
             $count = intval($line['count']);
             // iterate all lines in that file
             if ($line['type'] == 'stmt' && $count > 0) {
                 $lineNr = (string)$line['num'];
                 $hit = $count;
-                $lineCoverage[$lineNr] = $hit;
+                $lineCoverage->$lineNr = $hit;
             }
         }
         return $lineCoverage;

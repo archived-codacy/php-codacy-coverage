@@ -37,7 +37,7 @@ class PhpUnitXmlParserTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(95, $cloverParserFileReport->getTotal());
 
         $lineCoverage = $configFileReport->getLineCoverage();
-        $expLineCoverage = array(24 => 4, 25 => 4, 26 => 4, 27 => 4, 28 => 4, 29 => 4);
+        $expLineCoverage = (object)array(24 => 4, 25 => 4, 26 => 4, 27 => 4, 28 => 4, 29 => 4);
         $this->assertEquals($lineCoverage, $expLineCoverage);
 
         $configFileName = $configFileReport->getFileName();

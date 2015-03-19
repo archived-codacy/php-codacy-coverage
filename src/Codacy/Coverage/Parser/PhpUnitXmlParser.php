@@ -2,8 +2,8 @@
 
 namespace Codacy\Coverage\Parser;
 
-use Codacy\Coverage\Report\FileReport;
 use Codacy\Coverage\Report\CoverageReport;
+use Codacy\Coverage\Report\FileReport;
 
 /**
  * Parses XML file, result of phpunit --coverage-xml, and produces
@@ -78,13 +78,13 @@ class PhpUnitXmlParser extends XMLParser implements IParser
      */
     private function getLineCoverage(\SimpleXMLElement $node)
     {
-        $lineCoverage = array();
+        $lineCoverage = (object)array();
         if ($node->file->coverage) {
             foreach ($node->file->coverage->line as $line) {
                 $count = $line->covered->count();
                 if ($count > 0) {
                     $nr = (string)$line["nr"];
-                    $lineCoverage[$nr] = $count;
+                    $lineCoverage->$nr = $count;
                 }
             }
         }
