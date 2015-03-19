@@ -19,7 +19,7 @@ class CloverParser extends XMLParser implements IParser
      * more detailed extraction work to _makeFileReports() method.
      * @return CoverageReport $report The CoverageReport object
      */
-    public function makeReport() 
+    public function makeReport()
     {
         $project = $this->element->project;
         $projectMetrics = $project->metrics;
@@ -30,10 +30,10 @@ class CloverParser extends XMLParser implements IParser
         $report = new CoverageReport($reportTotal, $fileReports);
         return $report;
     }
-    
+
     /**
      * Takes the root \SimpleXMLElement object of the parsed file
-     * and decides on how to iterate it to extract information of all 
+     * and decides on how to iterate it to extract information of all
      * <file...>..</file> nodes.
      * @param \SimpleXMLElement $node the root XML node.
      * @return array holding FileReport objects
@@ -55,11 +55,11 @@ class CloverParser extends XMLParser implements IParser
         }
         return $fileReports;
     }
-    
+
     /**
      * Iterates all over all <file...>..</file> nodes.
-     * @param \SimpleXMLElement $node        The XML node holding the file nodes.
-     * @param array             $fileReports array of FileReport objects
+     * @param \SimpleXMLElement $node The XML node holding the file nodes.
+     * @param array $fileReports array of FileReport objects
      * @return array holding FileReport objects
      */
     private function makeFileReportsFromFiles(\SimpleXMLElement $node, $fileReports)
@@ -80,11 +80,11 @@ class CloverParser extends XMLParser implements IParser
         }
         return $fileReports;
     }
-    
+
     /**
      * Iterates over all <package..>...</package> nodes and calls _makeFileReportsFromFiles on them
-     * @param \SimpleXMLElement $node        The XML node holding all <package..>...</package> nodes
-     * @param array             $fileReports array of FileReport objects
+     * @param \SimpleXMLElement $node The XML node holding all <package..>...</package> nodes
+     * @param array $fileReports array of FileReport objects
      * @return array holding FileReport objects
      */
     private function makeFileReportsFromPackages(\SimpleXMLElement $node, $fileReports)
@@ -95,7 +95,7 @@ class CloverParser extends XMLParser implements IParser
         }
         return $fileReports;
     }
-    
+
     /**
      * Iterates all <line></line> nodes and produces an array holding line coverage information.
      * Only adds lines of type "stmt" and with count greater than 0.
@@ -108,15 +108,15 @@ class CloverParser extends XMLParser implements IParser
         foreach ($node as $line) {
             $count = intval($line['count']);
             // iterate all lines in that file
-            if ($line['type'] == 'stmt' && $count > 0 ) {
-                $lineNr = (string) $line['num'];
+            if ($line['type'] == 'stmt' && $count > 0) {
+                $lineNr = (string)$line['num'];
                 $hit = $count;
                 $lineCoverage[$lineNr] = $hit;
             }
         }
         return $lineCoverage;
     }
-    
+
     /**
      * Cuts the file name so we have relative path to projectRoot.
      * In a clover file file names are saved from / on.
@@ -126,7 +126,13 @@ class CloverParser extends XMLParser implements IParser
      */
     private function getRelativePath(\SimpleXMLElement $fileName)
     {
-        $len = strlen($this->rootDir);
-        return substr((string) $fileName, $len + 1);
+        $prefix = $this->rootDir . DIRECTORY_SEPARATOR;
+        $str = (string)$fileName;
+
+        if (substr($str, 0, strlen($prefix)) == $prefix) {
+            $str = substr($str, strlen($prefix));
+        }
+
+        return $str;
     }
 }

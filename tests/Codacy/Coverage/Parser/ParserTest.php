@@ -12,8 +12,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
      */
     public function testParsersProduceSameResult()
     {
-        $cloverParser = new CloverParser('tests/res/phpunit-clover/clover.xml');
-        $xunitParser = new PhpUnitXmlParser('tests/res/phpunit-clover/index.xml');
+        $cloverParser = new CloverParser('tests/res/phpunit-clover/clover.xml', '/home/jacke/Desktop/codacy-php');
+        $xunitParser = new PhpUnitXmlParser('tests/res/phpunit-clover/index.xml', '/home/jacke/Desktop/codacy-php');
         $xunitParser->setDirOfFileXmls('tests/res/phpunit-clover');
         $expectedJson = $file = file_get_contents('tests/res/expected.json', true);
 
