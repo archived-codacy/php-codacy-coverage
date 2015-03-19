@@ -12,23 +12,23 @@ use Codacy\Coverage\Util\JsonProducer;
 
 $projectToken = getenv("CODACY_PROJECT_TOKEN");
 
-if($projectToken == false) {
+if ($projectToken == false) {
     die(
-    "Cannot continue with execution as long as your project token is not set as an environmental variable." . PHP_EOL .
-    "Please type: export CODACY_PROJECT_TOKEN=<YOUR TOKEN>" . PHP_EOL
+        "Cannot continue with execution as long as your project token is not set as an environmental variable." . PHP_EOL .
+        "Please type: export CODACY_PROJECT_TOKEN=<YOUR TOKEN>" . PHP_EOL
     );
 }
 
-if(sizeof($argv) != 2) {
+if (sizeof($argv) != 2) {
     die("Invalid length of arguments! Only one argument for coverage format allowed." . PHP_EOL .
         "It should either be clover or phpunit." . PHP_EOL . "## Example: php vendor/bin/codacycoverage clover" . PHP_EOL .
         "Or if you are using the phar, codacycoverage.phar clover" . PHP_EOL
     );
 } else {
-    $coverageFormat =  $argv[1];
+    $coverageFormat = $argv[1];
 }
 
-switch ($coverageFormat){
+switch ($coverageFormat) {
 
     case "clover":
         $parser = new CloverParser(
@@ -46,9 +46,9 @@ switch ($coverageFormat){
     default:
         throw new \InvalidArgumentException(
             'No valid coverage format argument found. It should either be clover or phpunit.' . PHP_EOL .
-                "Example: php vendor/bin/codacycoverage clover"
+            "Example: php vendor/bin/codacycoverage clover"
         );
-    }
+}
 
 $jsonProducer = new JsonProducer();
 
