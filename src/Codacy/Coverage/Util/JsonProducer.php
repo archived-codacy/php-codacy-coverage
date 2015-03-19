@@ -77,6 +77,11 @@ class JsonProducer
 
         $array['fileReports'] = $fileReportsArray;
 
-        return json_encode($array, JSON_UNESCAPED_SLASHES);
+        if (version_compare(PHP_VERSION, '5.4.0', '>=')) {
+            return json_encode($array, JSON_UNESCAPED_SLASHES);
+        } else {
+            return str_replace('\/', '/', json_encode($array));
+        }
+
     }
 }
