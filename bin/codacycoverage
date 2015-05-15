@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 
-require 'vendor/autoload.php';
+require_once __DIR__ . '/../../../autoload.php';
 
 use Codacy\Coverage\Parser\CloverParser;
 use Codacy\Coverage\Parser\PhpUnitXmlParser;
