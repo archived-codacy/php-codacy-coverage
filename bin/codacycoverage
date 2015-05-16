@@ -19,9 +19,11 @@ if ($projectToken == false) {
     );
 }
 
-if (sizeof($argv) != 2) {
-    die("Invalid length of arguments. Only one argument for coverage format allowed." . PHP_EOL .
-        "It should either be clover or phpunit." . PHP_EOL . "## Example: php vendor/bin/codacycoverage clover" . PHP_EOL .
+if (sizeof($argv) < 2) {
+    die("Invalid length of arguments. There are one argument required." . PHP_EOL .
+        "It should either be clover or phpunit." . PHP_EOL .
+        "The second optional argument is a path where coverage result store." . PHP_EOL .
+        "## Example: php vendor/bin/codacycoverage clover" . PHP_EOL .
         "Or if you are using the phar, codacycoverage.phar clover" . PHP_EOL
     );
 } else {
@@ -31,16 +33,18 @@ if (sizeof($argv) != 2) {
 switch ($coverageFormat) {
 
     case "clover":
-        $parser = new CloverParser(
-            join(DIRECTORY_SEPARATOR, array("build", "logs", "clover.xml"))
-        );
+        $cloverXml = (isset($argv[2])) ?
+            $argv[2] :
+            join(DIRECTORY_SEPARATOR, array("build", "logs", "clover.xml"));
+        $parser = new CloverParser($cloverXml);
         break;
 
     case "phpunit":
-        $parser = new PhpUnitXmlParser(
-            join(DIRECTORY_SEPARATOR, array("build", "coverage-xml", "index.xml"))
-        );
-        $parser->setDirOfFileXmls(join(DIRECTORY_SEPARATOR, array("build", "coverage-xml")));
+        $coverageXmlPath = (isset($argv[2])) ?
+            $argv[2] :
+            "build" . DIRECTORY_SEPARATOR . "coverage-xml";
+        $parser = new PhpUnitXmlParser($coverageXmlPath . DIRECTORY_SEPARATOR . "index.xml");
+        $parser->setDirOfFileXmls($coverageXmlPath);
         break;
 
     default:
