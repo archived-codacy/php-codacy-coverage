@@ -11,14 +11,15 @@ class CodacyApiClient
 
     //TODO: do it with fsockopen
     /**
-     * @param string $url url to post to
+     * @param string $url  url to post to
      * @param string $data the JSON data
-     * @return void
+     *
+     * @return string      sucess message
+     *
+     * @throws \Exception   when remote server response
      */
     static function postData($url, $data)
     {
-        echo "Sending Coverage Data to Codacy\n\r";
-
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_HEADER, false);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -34,14 +35,16 @@ class CodacyApiClient
         $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
         if ($status < 200 || $status > 201) {
-            die("Error: call to URL $url failed with status $status, response $json_response, curl_error "
-                . curl_error($curl) . ", curl_errno " . curl_errno($curl));
-        } else {
-            $json = json_decode($json_response, true);
-            echo $json['success'] . "\n\r";
+            throw new \Exception(
+                sprintf("Error: call to URL %s failed with status %s, response %s, curl_error %s, $curl_errno",
+                         $url, $status, $json_response, curl_error($curl), curl_errno($curl)
+                )
+            );
         }
 
         curl_close($curl);
 
+        $json = json_decode($json_response, true);
+        return $json['success'];
     }
 }
