@@ -36,7 +36,7 @@ class CodacyApiClient
 
         if ($status < 200 || $status > 201) {
             throw new \Exception(
-                sprintf("Error: call to URL %s failed with status %s, response %s, curl_error %s, $curl_errno",
+                sprintf("Error: call to URL %s failed with status %s, response %s, curl_error %u",
                          $url, $status, $json_response, curl_error($curl), curl_errno($curl)
                 )
             );
