@@ -9,8 +9,7 @@
     "symfony/console": "2.6.7"
   },
   "require-dev": {
-    "phpunit/phpunit": "~4.5",
-    "kherge/box": "~2.5"
+    "phpunit/phpunit": "~4.5"
   },
   "bin": ["bin/codacycoverage"],
   "autoload": {
