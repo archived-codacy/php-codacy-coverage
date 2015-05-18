@@ -24,11 +24,11 @@ class Clover extends ConsoleCommand {
     {
         $this
             ->setName("clover")
-            ->setDescription("Send coverage results from clover.xml format")
+            ->setDescription("Send coverage results in clover format")
             ->addArgument(
                 "path_to_coverage_results",
                 InputArgument::OPTIONAL,
-                "Path where coverage results saved"
+                "Path where coverage results are saved: XML file for clover format; directory containing the index.xml for phpunit format"
             )
             ->addOption(
                 "git-commit",
@@ -62,7 +62,7 @@ class Clover extends ConsoleCommand {
         $data = $jsonProducer->makeJson();
 
         if ($output->isVerbose()) {
-            $output->writeln("Send coverage result to ". $url);
+            $output->writeln("Sending coverage result to ". $url);
         }
 
         $result = CodacyApiClient::postData($url, $data);
