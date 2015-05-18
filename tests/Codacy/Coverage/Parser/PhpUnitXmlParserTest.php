@@ -13,10 +13,10 @@ class PhpUnitXmlParserTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Testing against the coverage report in 'tests/res/phpunitxml'
+     * Testing against the clover coverage report 'tests/res/clover/clover.xml'
      * The test had been made in /home/jacke/Desktop/codacy-php so we need to pass this
-     * as 2nd (ootional) parameter. Otherwise the filename will not be correct and test
-     * the would file on other machines or in other directories.
+     * as 2nd (optional) parameter. Otherwise the filename will not be correct and test
+     * would fail on other machines or in other directories.
      */
     public function testCanParsePhpUnitXmlReport()
     {

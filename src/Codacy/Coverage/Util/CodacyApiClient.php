@@ -9,7 +9,6 @@ namespace Codacy\Coverage\Util;
 class CodacyApiClient
 {
 
-    //TODO: do it with fsockopen
     /**
      * @param string $url  url to post to
      * @param string $data the JSON data

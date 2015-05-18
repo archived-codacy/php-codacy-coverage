@@ -6,7 +6,9 @@
 # Prerequisites
 
 - PHP 5.3 or later
-- Clover style coverage report
+- One of the following coverage report formats
+  - Clover XML (e.g. ```--coverage-clover``` in PHPUnit)
+  - PHPUnit XML (e.g. ```--coverage-xml``` in PHPUnit)
 
 # Installation
 
@@ -38,20 +40,35 @@ Add the autoloader to your php script:
 require_once 'vendor/autoload.php';
 ```
 
-## PHPUnit
+# Usage
 
-Make sure that `phpunit.xml.dist` is configured to generate "coverage-clover" type log named `clover.xml` like the following configuration:
+Run ```vendor/bin/codacycoverage``` to see a list of commands.
 
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<phpunit ...>
-    <logging>
-        ...
-        <log type="coverage-clover" target="build/logs/clover.xml"/>
-        ...
-    </logging>
-</phpunit>
-```
+#### Basic usage for Clover format:
+
+```vendor/bin/codacycoverage clover```
+
+#### Basic usage for PHPUnit XML format:
+
+```php vendor/bin/codacycoverage phpunit```
+
+By default we assume that
+- your Clover coverage report is saved in ```build/logs/clover.xml```
+- your PHPUnit XML report is saved in the directory ```build/coverage-xml```
+
+#### Optional parameters:
+
+You can specify the path to your report with the second parameter:
+
+- Clover XML
+  - ```php vendor/bin/codacycoverage clover path/to/a-clover.xml```
+- PHPUnit XML
+  - ```php vendor/bin/codacycoverage phpunit directory/path/to/phpunitreport```
+
+Even more control:
+
+- ```--base-url=<OTHER_URL>``` defaults to http://codacy.com
+- ```--git-commit=<COMMIT_HASH>``` defaults to the last commit hash
 
 ## Travis CI
 
@@ -75,7 +92,7 @@ script:
   - php vendor/bin/phpunit
 
 after_script:
-  - php vendor/bin/codacycoverage clover
+  - php vendor/bin/codacycoverage clover path/to/clover.xml
 ```
 
 ## License
