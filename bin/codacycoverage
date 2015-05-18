@@ -2,6 +2,7 @@
 <?php
 
 $files = array(
+    "vendor/autoload.php", // this one should be looked for first
     __DIR__ . "/../../vendor/autoload.php",
     __DIR__ . "/../../../autoload.php",
     dirname(__DIR__) . "/vendor/autoload.php"
