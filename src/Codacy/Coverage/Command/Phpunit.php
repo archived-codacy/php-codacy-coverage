@@ -16,7 +16,7 @@ class Phpunit extends Clover {
 
         $this
             ->setName("phpunit")
-            ->setDescription("Send coverage results from phpunit coverage-xml dir");
+            ->setDescription("Send coverage results in phpunit format");
     }
 
     protected function getParser($path = null)
