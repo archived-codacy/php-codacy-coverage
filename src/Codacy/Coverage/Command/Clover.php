@@ -18,7 +18,8 @@ use Codacy\Coverage\Util\CodacyApiClient;
  * Class Clover
  *
  */
-class Clover extends ConsoleCommand {
+class Clover extends ConsoleCommand
+{
 
     protected function configure()
     {
@@ -41,8 +42,7 @@ class Clover extends ConsoleCommand {
                 null,
                 InputOption::VALUE_REQUIRED,
                 "Codacy base url"
-            )
-        ;
+            );
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -57,16 +57,15 @@ class Clover extends ConsoleCommand {
 
         $baseUrl = $this->getBaseCodacyUrl($input->getOption("base-url"));
 
-        $url = $baseUrl . "/api/coverage/" . $projectToken . "/" . $commit;
-
         $data = $jsonProducer->makeJson();
 
         if ($output->isVerbose()) {
-            $output->writeln("Sending coverage results to ". $url);
+            $output->writeln("Sending coverage results to " . $baseUrl);
         }
 
-        $result = CodacyApiClient::postData($url, $data);
-        if($output->isVerbose()) {
+        $client = new CodacyApiClient($baseUrl, $projectToken);
+        $result = $client->sendCoverage($commit, $data);
+        if ($output->isVerbose()) {
             $output->writeln($result);
         }
     }
@@ -74,15 +73,15 @@ class Clover extends ConsoleCommand {
     /**
      * Get parser of current format type.
      *
-     * @param string  $path     Path to clover.xml
+     * @param string $path Path to clover.xml
      *
      * @return CloverParser
      */
     protected function getParser($path = null)
     {
         $path = is_null($path) ?
-                    join(DIRECTORY_SEPARATOR, array('build', 'logs', 'clover.xml')) :
-                    $path;
+            join(DIRECTORY_SEPARATOR, array('build', 'logs', 'clover.xml')) :
+            $path;
         return new CloverParser($path);
     }
 
@@ -109,7 +108,7 @@ class Clover extends ConsoleCommand {
     /**
      * Get Git commit hash of project
      *
-     * @param string $hash  Specified hash
+     * @param string $hash Specified hash
      *
      * @return string       Git commit hash
      *
@@ -134,7 +133,7 @@ class Clover extends ConsoleCommand {
     /**
      * Return base Codacy Project URL
      *
-     * @param string $url   HTTP URL for codacy
+     * @param string $url HTTP URL for codacy
      *
      * @return string       Base Codacy Project URL
      */
