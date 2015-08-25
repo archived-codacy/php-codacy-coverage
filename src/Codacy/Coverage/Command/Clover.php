@@ -144,6 +144,6 @@ class Clover extends ConsoleCommand
         }
         $url = getenv("CODACY_API_BASE_URL");
 
-        return $url ? $url : "https://www.codacy.com";
+        return $url ? $url : "https://api.codacy.com";
     }
 }
