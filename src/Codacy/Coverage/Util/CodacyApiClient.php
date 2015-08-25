@@ -25,7 +25,7 @@ class CodacyApiClient
      */
     public function sendCoverage($commit, $data)
     {
-        $url = $this->baseUrl . "/api/2.0/coverage/" . $commit . "/php";
+        $url = $this->baseUrl . "/2.0/coverage/" . $commit . "/php";
 
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_HEADER, false);
