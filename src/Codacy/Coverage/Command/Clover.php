@@ -61,6 +61,8 @@ class Clover extends ConsoleCommand
 
         if ($output->isVerbose()) {
             $output->writeln("Sending coverage results to " . $baseUrl);
+            $output->writeln("Generated JSON:");
+            $output->writeln($data);
         }
 
         $client = new CodacyApiClient($baseUrl, $projectToken);
