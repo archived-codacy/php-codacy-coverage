@@ -1,7 +1,10 @@
+[![Codacy Badge](https://api.codacy.com/project/badge/grade/d992a862b1994805907ec277e16b0fda)](https://www.codacy.com/app/Codacy/php-codacy-coverage)
+[![Codacy Badge](https://api.codacy.com/project/badge/coverage/d992a862b1994805907ec277e16b0fda)](https://www.codacy.com/app/Codacy/php-codacy-coverage)
+[![Circle CI](https://circleci.com/gh/codacy/php-codacy-coverage.svg?style=shield&circle-token=:circle-token)](https://circleci.com/gh/codacy/php-codacy-coverage)
+[![Latest Stable Version](https://poser.pugx.org/codacy/coverage/version)](https://packagist.org/packages/codacy/coverage)
+
 # Codacy PHP Coverage Reporter
 [Codacy](https://codacy.com/) coverage support for PHP. Get coverage reporting and code analysis for PHP from Codacy.
-
-[![Codacy Badge](https://www.codacy.com/project/badge/d992a862b1994805907ec277e16b0fda)](https://www.codacy.com/public/caxaria/php-codacy-coverage)
 
 # Prerequisites
 
@@ -69,6 +72,11 @@ Even more control:
 
 - ```--base-url=<OTHER_URL>``` defaults to http://codacy.com
 - ```--git-commit=<COMMIT_HASH>``` defaults to the last commit hash
+
+## Circle CI
+
+This project sends its own coverage during the build in circleCI.
+Feel free to check our `circle.yml`, and send your coverage as a step of your build process. 
 
 ## Travis CI
 
