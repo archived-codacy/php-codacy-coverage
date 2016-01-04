@@ -43,6 +43,18 @@ Add the autoloader to your php script:
 require_once 'vendor/autoload.php';
 ```
 
+## Updating Codacy
+
+To update Codacy, you will need your project API token. You can find the token in Project -> Settings -> Integrations -> Project API.
+
+Then set it in your terminal, replacing %Project_Token% with your own token:
+
+```
+export CODACY_PROJECT_TOKEN=%Project_Token%
+```
+
+> Note: You should keep your API token well **protected**, as it grants owner permissions to your projects.
+
 # Usage
 
 Run ```vendor/bin/codacycoverage``` to see a list of commands.
