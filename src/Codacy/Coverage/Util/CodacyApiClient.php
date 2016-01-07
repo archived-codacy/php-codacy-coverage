@@ -55,6 +55,11 @@ class CodacyApiClient
         curl_close($curl);
 
         $json = json_decode($json_response, true);
-        return $json['success'];
+
+        if (isset($json['success']) || array_key_exists('success', $json)) {
+            return $json['success'];
+        } else {
+            return $json['error'];
+        }
     }
 }
