@@ -25,7 +25,7 @@ class CloverParser extends XMLParser implements IParser
         $projectMetrics = $project->metrics;
         $coveredStatements = intval($projectMetrics['coveredstatements']);
         $statementsTotal = intval($projectMetrics['statements']);
-        $reportTotal = round(($coveredStatements / $statementsTotal) * 100);
+        $reportTotal = round($this->safeDivision($coveredStatements, $statementsTotal) * 100);
         $fileReports = $this->makeFileReports($project);
         $report = new CoverageReport($reportTotal, $fileReports);
         return $report;
@@ -71,7 +71,7 @@ class CloverParser extends XMLParser implements IParser
             if ($countStatement == 0) {
                 $fileTotal = 0;
             } else {
-                $fileTotal = round(($countCoveredStatements / $countStatement) * 100);
+                $fileTotal = round($this->safeDivision($countCoveredStatements, $countStatement) * 100);
             }
             $fileName = $this->getRelativePath($file['name']);
             $lineCoverage = $this->getLineCoverage($file);
@@ -134,5 +134,13 @@ class CloverParser extends XMLParser implements IParser
         }
 
         return $str;
+    }
+
+    private function safeDivision($a, $b)
+    {
+        if ($b === 0) {
+            return 0;
+        }
+        return $a / $b;
     }
 }
