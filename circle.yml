@@ -11,4 +11,9 @@ dependencies:
 test:
   post:
     - php vendor/bin/phpunit
-    - php bin/codacycoverage clover
+
+deployment:
+  coverage:
+    branch: master
+    commands:
+      - php bin/codacycoverage clover
