@@ -91,7 +91,7 @@ class CloverParser extends XMLParser implements IParser
     {
         // iterate all packages
         foreach ($node as $package) {
-            $fileReports = $this->makeFileReportsFromFiles($package, $fileReports);
+            $fileReports = $this->makeFileReportsFromFiles($package->file, $fileReports);
         }
         return $fileReports;
     }
