@@ -64,7 +64,7 @@ class CloverParser extends XMLParser implements IParser
      */
     private function makeFileReportsFromFiles(\SimpleXMLElement $node, $fileReports)
     {
-        foreach ($node->file as $file) {
+        foreach ($node as $file) {
             // iterate files in the package
             $countStatement = intval($file->metrics['statements']);
             $countCoveredStatements = intval($file->metrics['coveredstatements']);
@@ -91,7 +91,7 @@ class CloverParser extends XMLParser implements IParser
     {
         // iterate all packages
         foreach ($node as $package) {
-            $fileReports = $this->makeFileReportsFromFiles($package, $fileReports);
+            $fileReports = $this->makeFileReportsFromFiles($package->file, $fileReports);
         }
         return $fileReports;
     }
