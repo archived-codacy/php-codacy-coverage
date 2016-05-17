@@ -43,6 +43,12 @@ Add the autoloader to your php script:
 require_once 'vendor/autoload.php';
 ```
 
+> Note:
+We have php5-curl dependency, if you have issues related to curl_init() please install it with:
+```
+sudo apt-get install php5-curl
+```
+
 ## Updating Codacy
 
 To update Codacy, you will need your project API token. You can find the token in Project -> Settings -> Integrations -> Project API.
