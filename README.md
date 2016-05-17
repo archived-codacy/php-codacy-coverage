@@ -43,6 +43,12 @@ Add the autoloader to your php script:
 require_once 'vendor/autoload.php';
 ```
 
+> Note:
+We have php5-curl dependency, if you have issues related to curl_init() please install it with:
+```
+sudo apt-get install php5-curl
+```
+
 ## Updating Codacy
 
 To update Codacy, you will need your project API token. You can find the token in Project -> Settings -> Integrations -> Project API.
@@ -114,6 +120,14 @@ script:
 after_script:
   - php vendor/bin/codacycoverage clover path/to/clover.xml
 ```
+
+# Troubleshooting
+
+If you have a fatal error regarding curl_init():
+```
+PHP Fatal error:  Uncaught Error: Call to undefined function Codacy\Coverage\Util\curl_init() in /src/Codacy/Coverage/Util/CodacyApiClient.php:30
+```
+Run: ```sudo apt-get install php5-curl```
 
 ## License
 [MIT](LICENSE)
