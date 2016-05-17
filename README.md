@@ -121,5 +121,13 @@ after_script:
   - php vendor/bin/codacycoverage clover path/to/clover.xml
 ```
 
+## Troubleshooting
+
+If you have a fatal error regarding curl_init():
+```
+PHP Fatal error:  Uncaught Error: Call to undefined function Codacy\Coverage\Util\curl_init() in /src/Codacy/Coverage/Util/CodacyApiClient.php:30
+```
+Run: ```sudo apt-get install php5-curl```
+
 ## License
 [MIT](LICENSE)
