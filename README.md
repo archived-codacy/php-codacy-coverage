@@ -61,6 +61,11 @@ export CODACY_PROJECT_TOKEN=%Project_Token%
 
 > Note: You should keep your API token well **protected**, as it grants owner permissions to your projects.
 
+> To send coverage in the enterprise version you should:
+```
+export CODACY_API_BASE_URL=<Codacy_instance_URL>:16006
+```
+
 # Usage
 
 Run ```vendor/bin/codacycoverage``` to see a list of commands.
