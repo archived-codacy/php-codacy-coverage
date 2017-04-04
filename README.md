@@ -66,8 +66,6 @@ export CODACY_PROJECT_TOKEN=%Project_Token%
 export CODACY_API_BASE_URL=<Codacy_instance_URL>:16006
 ```
 
-You do not need to provide this environment variable if run in CI systems like Travis or Circle.
-
 # Usage
 
 Run ```vendor/bin/codacycoverage``` to see a list of commands.
@@ -110,6 +108,10 @@ Add codacycoverage to your `.travis.yml`:
 ```yml
 # .travis.yml
 language: php
+
+env:
+  - CODACY_PROJECT_TOKEN=<yourTokenGoesHere>
+
 php:
   - 5.3
   - 5.4
@@ -118,8 +120,8 @@ php:
   - hhvm
 
 before_script:
-  - curl -s http://getcomposer.org/installer | php
-  - php composer.phar install -n
+  - travis_retry curl -s http://getcomposer.org/installer | php
+  - travis_retry php composer.phar install -n
 
 script:
   - php vendor/bin/phpunit
