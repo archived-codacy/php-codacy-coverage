@@ -1,0 +1,18 @@
+language: php
+
+php:
+  - '7.0.17'
+  - '7.0'
+  - '7.1.2'
+  - nightly
+
+before_script:
+  - travis_retry curl -s http://getcomposer.org/installer | php
+  - travis_retry php composer.phar install -n
+
+# Explicitly use the phpunit from composer, not any system-wide found
+script: 
+  - vendor/bin/phpunit -c phpunit.xml --coverage-clover=coverage.xml tests
+
+after_success:
+  - php vendor/bin/codacycoverage clover coverage.xml
