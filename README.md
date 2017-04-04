@@ -109,8 +109,7 @@ Add codacycoverage to your `.travis.yml`:
 # .travis.yml
 language: php
 
-env:
-  - CODACY_PROJECT_TOKEN=<yourTokenGoesHere>
+# Do not forget to provide your CODACY_PROJECT_TOKEN as described in https://docs.travis-ci.com/user/environment-variables/#Defining-Variables-in-Repository-Settings
 
 php:
   - 5.3
