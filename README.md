@@ -66,6 +66,8 @@ export CODACY_PROJECT_TOKEN=%Project_Token%
 export CODACY_API_BASE_URL=<Codacy_instance_URL>:16006
 ```
 
+You do not need to provide this environment variable if run in CI systems like Travis or Circle.
+
 # Usage
 
 Run ```vendor/bin/codacycoverage``` to see a list of commands.
