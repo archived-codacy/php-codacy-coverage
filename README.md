@@ -108,6 +108,9 @@ Add codacycoverage to your `.travis.yml`:
 ```yml
 # .travis.yml
 language: php
+
+# Do not forget to provide your CODACY_PROJECT_TOKEN as described in https://docs.travis-ci.com/user/environment-variables/#Defining-Variables-in-Repository-Settings
+
 php:
   - 5.3
   - 5.4
@@ -115,6 +118,7 @@ php:
   - 5.6
   - hhvm
 
+# In case of timeouts and build failures you may want to prepend 'travis_retry' to the following commands:
 before_script:
   - curl -s http://getcomposer.org/installer | php
   - php composer.phar install -n
