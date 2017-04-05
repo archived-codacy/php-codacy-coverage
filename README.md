@@ -118,9 +118,10 @@ php:
   - 5.6
   - hhvm
 
+# In case of timeouts and build failures you may want to prepend 'travis_retry' to the following commands:
 before_script:
-  - travis_retry curl -s http://getcomposer.org/installer | php
-  - travis_retry php composer.phar install -n
+  - curl -s http://getcomposer.org/installer | php
+  - php composer.phar install -n
 
 script:
   - php vendor/bin/phpunit
