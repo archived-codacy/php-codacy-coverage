@@ -37,6 +37,7 @@ class CodacyApiClient
                 "project_token: " . $this->projectToken
             )
         );
+        curl_setopt($curl, CURLOPT_CAINFO, dirname(__FILE__) . '/cacert.pem'); 
         curl_setopt($curl, CURLOPT_POST, true);
         curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
 
