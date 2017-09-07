@@ -82,13 +82,10 @@ class PhpUnitXmlParser extends XMLParser implements IParser
         if ($node->file->coverage) {
             foreach ($node->file->coverage->line as $line) {
                 $count = $line->covered->count();
-                if ($count > 0) {
-                    $nr = (string)$line["nr"];
-                    $lineCoverage->$nr = $count;
-                }
+                $nr = (string)$line["nr"];
+                $lineCoverage->$nr = $count;
             }
         }
-        // else there is no line coverage, return empty array then.
         return $lineCoverage;
     }
 

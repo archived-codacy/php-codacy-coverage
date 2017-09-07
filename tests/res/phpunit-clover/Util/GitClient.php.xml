@@ -24,6 +24,9 @@
       <line nr="27">
         <covered by="GitClientTest::testGetHashOfLastCommit"/>
       </line>
+      <line nr="28"/>
+      <line nr="30"/>
+      <line nr="31"/>
       <line nr="34">
         <covered by="GitClientTest::testGetHashOfLastCommit"/>
       </line>

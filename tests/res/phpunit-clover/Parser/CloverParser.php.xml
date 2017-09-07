@@ -113,6 +113,8 @@
         <covered by="CloverParserTest::testCanParseCloverXmlWithProject"/>
         <covered by="Codacy\Coverage\Parser\ParserTest::testParsersProduceSameResult"/>
       </line>
+      <line nr="72" />
+      <line nr="73" />
       <line nr="74">
         <covered by="CloverParserTest::testCanParseCloverXmlWithoutProject"/>
         <covered by="CloverParserTest::testCanParseCloverXmlWithProject"/>

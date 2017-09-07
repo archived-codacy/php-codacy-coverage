@@ -71,6 +71,9 @@
         <covered by="Codacy\Coverage\Parser\ParserTest::testParsersProduceSameResult"/>
         <covered by="PhpUnitXmlParserTest::testCanParsePhpUnitXmlReport"/>
       </line>
+      <line nr="59"/>
+      <line nr="60"/>
+      <line nr="61"/>
       <line nr="64">
         <covered by="Codacy\Coverage\Parser\ParserTest::testParsersProduceSameResult"/>
         <covered by="PhpUnitXmlParserTest::testCanParsePhpUnitXmlReport"/>
