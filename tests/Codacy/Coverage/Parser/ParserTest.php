@@ -5,7 +5,7 @@ namespace Codacy\Coverage\Parser;
 
 use Codacy\Coverage\Util\JsonProducer;
 
-class ParserTest extends \PHPUnit_Framework_TestCase
+class ParserTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Running against tests/res/phpunit-clover

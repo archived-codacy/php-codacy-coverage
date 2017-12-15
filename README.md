@@ -11,7 +11,7 @@
 - PHP 5.3 or later
 - One of the following coverage report formats
   - Clover XML (e.g. ```--coverage-clover``` in PHPUnit)
-  - PHPUnit XML (e.g. ```--coverage-xml``` in PHPUnit)
+  - [Only for PHPUnit <4] PHPUnit XML (e.g. ```--coverage-xml``` in PHPUnit)
 
 # Installation
 
@@ -124,10 +124,10 @@ before_script:
   - php composer.phar install -n
 
 script:
-  - php vendor/bin/phpunit
+  - php vendor/bin/phpunit --coverage-clover build/coverage/xml
 
 after_script:
-  - php vendor/bin/codacycoverage clover path/to/clover.xml
+  - php vendor/bin/codacycoverage clover build/coverage/xml
 ```
 
 ## Troubleshooting

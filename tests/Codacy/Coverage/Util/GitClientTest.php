@@ -2,7 +2,7 @@
 
 use Codacy\Coverage\Util\GitClient;
 
-class GitClientTest extends PHPUnit_Framework_TestCase
+class GitClientTest extends \PHPUnit\Framework\TestCase
 {
     public function testGetHashOfLastCommit()
     {

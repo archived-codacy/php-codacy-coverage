@@ -2,13 +2,13 @@
 
 use Codacy\Coverage\Parser\PhpUnitXmlParser;
 
-class PhpUnitXmlParserTest extends PHPUnit_Framework_TestCase
+class PhpUnitXmlParserTest extends \PHPUnit\Framework\TestCase
 {
 
 
     public function testThrowsExceptionOnWrongPath()
     {
-        $this->setExpectedException('InvalidArgumentException');
+        $this->expectException('InvalidArgumentException');
         new PhpUnitXmlParser("/home/foo/bar/baz/fake.xml");
     }
 

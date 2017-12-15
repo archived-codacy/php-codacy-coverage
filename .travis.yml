@@ -13,8 +13,7 @@ before_script:
 
 # Explicitly use the phpunit from composer, not any system-wide found
 script: 
-  - vendor/bin/phpunit tests 
-# newer versions of phpunit allow this configuration: -c phpunit.xml --coverage-clover=coverage.xml tests
+  - php vendor/bin/phpunit --coverage-clover build/coverage/xml tests
 
 after_success:
-  - php vendor/bin/codacycoverage clover 
+  - php vendor/bin/codacycoverage clover build/coverage/xml
