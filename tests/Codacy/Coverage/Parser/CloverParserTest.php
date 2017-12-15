@@ -2,12 +2,12 @@
 
 use Codacy\Coverage\Parser\CloverParser;
 
-class CloverParserTest extends PHPUnit_Framework_TestCase
+class CloverParserTest extends \PHPUnit\Framework\TestCase
 {
 
     public function testThrowsExceptionOnWrongPath()
     {
-        $this->setExpectedException('InvalidArgumentException');
+        $this->expectException('InvalidArgumentException');
         new CloverParser("/home/foo/bar/baz/m.xml");
     }
 

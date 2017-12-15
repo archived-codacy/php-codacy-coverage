@@ -9,5 +9,5 @@ dependencies:
 
 test:
   post:
-    - php vendor/bin/phpunit
-    - php bin/codacycoverage clover
+    - php vendor/bin/phpunit --coverage-clover build/coverage/xml tests
+    - php bin/codacycoverage clover build/coverage/xml
