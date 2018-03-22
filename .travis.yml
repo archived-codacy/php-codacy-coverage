@@ -10,6 +10,7 @@ before_script:
 # In case of timeouts and build failures you may want to prepend 'travis_retry' to the following commands:
   - curl -s http://getcomposer.org/installer | php
   - php composer.phar install -n
+  - wget -O box.phar https://github.com/box-project/box2/releases/download/2.7.5/box-2.7.5.phar
 
 # Explicitly use the phpunit from composer, not any system-wide found
 script: 
@@ -17,3 +18,15 @@ script:
 
 after_success:
   - php vendor/bin/codacycoverage clover build/coverage/xml
+
+before_deploy:
+  - php -d phar.readonly=0 box.phar build && chmod +x build/codacy-coverage.phar
+
+deploy:
+  provider: releases
+  skip_cleanup: true
+  api_key:
+    secure: <api-key>
+  file: build/codacy-coverage.phar
+  on:
+    tags: true

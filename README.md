@@ -15,6 +15,12 @@
 
 # Installation
 
+Setup codacy-coverage as phar, you can simply download a pre-compiled and ready-to-use version as a phar to any directory. Simply download the latest `codacy-coverage.phar` file from our [releases page](https://github.com/codacy/php-codacy-coverage/releases):
+
+[Latest release](https://github.com/codacy/php-codacy-coverage/releases/latest)
+
+That's it already.
+
 Setup codacy-coverage with Composer, just add the following to your composer.json:
 
 ```js
