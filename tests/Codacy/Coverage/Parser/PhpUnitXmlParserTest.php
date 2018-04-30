@@ -12,6 +12,14 @@ class PhpUnitXmlParserTest extends \PHPUnit\Framework\TestCase
         new PhpUnitXmlParser("/home/foo/bar/baz/fake.xml");
     }
 
+    public function testMakeReportThrowsExceptionOnWrndPath()
+    {
+        $parser = new PhpUnitXmlParser('tests/res/phpunitxml/index.xml', '/home/jacke/Desktop/codacy-php');
+
+        $this->expectException('InvalidArgumentException');
+        $parser->makeReport();
+    }
+
     /**
      * Testing against the clover coverage report 'tests/res/clover/clover.xml'
      * The test had been made in /home/jacke/Desktop/codacy-php so we need to pass this

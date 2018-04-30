@@ -8,6 +8,7 @@ class CloverParserTest extends \PHPUnit\Framework\TestCase
     public function testThrowsExceptionOnWrongPath()
     {
         $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessage('Unable to load the xml file. Make sure path is properly set. Using: "/home/foo/bar/baz/m.xml"');
         new CloverParser("/home/foo/bar/baz/m.xml");
     }
 

@@ -31,4 +31,14 @@ class ParserTest extends \PHPUnit\Framework\TestCase
 
         $this->assertJsonStringEqualsJsonString($expectedJson, $xunitJson);
     }
+
+    public function testConstructorOnNullRootDir()
+    {
+        $parser = new PhpUnitXmlParser('tests/res/phpunitxml/index.xml');
+        $parser->setDirOfFileXmls("tests/res/phpunitxml");
+        $report = $parser->makeReport();
+
+        $this->assertEquals(69, $report->getTotal());
+        $this->assertEquals(10, sizeof($report->getFileReports()));
+    }
 }
