@@ -27,7 +27,7 @@ class Phpunit extends Clover {
         list($xmlFile, $dir) = is_file($path) ?
             [$path, dirname($path)] :
             [$path . DIRECTORY_SEPARATOR . "index.xml", $path];
-        
+        $parser->setDirOfFileXmls($dir);
         return new PhpUnitXmlParser($xmlFile);
     }
 }
