@@ -24,10 +24,10 @@ class Phpunit extends Clover {
         $path = is_null($path) ?
             "build" . DIRECTORY_SEPARATOR . "coverage-xml" :
             $path;
-
-        $parser = new PhpUnitXmlParser($path . DIRECTORY_SEPARATOR . "index.xml");
-        $parser->setDirOfFileXmls($path);
-
-        return $parser;
+        list($xmlFile, $dir) = is_file($path) ?
+            [$path, dirname($path)] :
+            [$path . DIRECTORY_SEPARATOR . "index.xml", $path];
+        
+        return new PhpUnitXmlParser($xmlFile);
     }
 }
