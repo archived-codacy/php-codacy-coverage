@@ -1,10 +1,9 @@
 language: php
 
 php:
-  - '7.0'
   - '7.1'
   - '7.2'
-  - nightly
+  - '7.3'
 
 before_script:
 # In case of timeouts and build failures you may want to prepend 'travis_retry' to the following commands:
