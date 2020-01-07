@@ -70,6 +70,8 @@ class Clover extends ConsoleCommand
         if ($output->isVerbose()) {
             $output->writeln($result);
         }
+        
+        return 0;
     }
 
     /**
